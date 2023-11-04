@@ -1,0 +1,1 @@
+# loto_app
