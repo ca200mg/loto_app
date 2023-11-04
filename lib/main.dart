@@ -1,43 +1,77 @@
 import 'package:flutter/material.dart';
-import 'package:loto_app/data_display.dart';
-import 'package:loto_app/loto6/loto6_flame.dart';
-import 'package:loto_app/my_home_page.dart';
-import 'package:loto_app/test/test1.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+
+import 'database.dart';
+import 'data_display.dart';
+import 'loto6/loto6_flame.dart';
+import 'my_home_page.dart';
+import 'test/test1.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Loto6Flame()//BottomTabBarSample()//DataDisplayPage()//const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: FutureBuilder(
+        future: checkIfDataExistsAndCallApi(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // まだデータベースの処理が完了していない場合、ローディングインジケータを表示
+            return Scaffold(body: Center(child: CircularProgressIndicator()));
+          } else {
+            // データベースの処理が完了した場合は、Loto6Flameを表示
+            return Loto6Flame();
+          }
+        },
+      ),
     );
   }
 }
 
+Future<void> checkIfDataExistsAndCallApi() async {
+  const allDate = '2023-10-20'; //'1994-10-06';
+  final databasePath = await getDatabasesPath();
+  final path = join(databasePath, 'lotodata.db');
+  bool fileExists = await databaseExists(path);
 
+  if (!fileExists) {
+    print('display.データベースは存在しない');
+    await fetchDataAndInsertToDatabase(allDate);
+  } else {
+    print('display.データベースは存在する');
+    Database database = await openDatabase(path);
+    List<Map<String, dynamic>> table = await database.query(
+      'sqlite_master',
+      where: 'name = ?',
+      whereArgs: ['n3'],
+    );
+
+    if (table.isNotEmpty) {
+      List<Map<String, dynamic>> latestDateData = await database.rawQuery(
+        'SELECT date FROM n3 ORDER BY date DESC LIMIT 1',
+      );
+
+      if (latestDateData.isNotEmpty) {
+        print('display.テーブルは存在する');
+        String latestDate = latestDateData.first['date'];
+        await fetchDataAndInsertToDatabase(latestDate);
+      } else {
+        await fetchDataAndInsertToDatabase(allDate);
+      }
+    } else {
+      print('display.テーブルは存在しない');
+      await fetchDataAndInsertToDatabase(allDate);
+    }
+  }
+}

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../setting.dart';
 import 'loto6_data_display.dart';
+import 'loto6_statistics.dart';
+import '../setting.dart';
 
 class Loto6Flame extends StatefulWidget {
   const Loto6Flame({Key? key}) : super(key: key);
@@ -15,7 +16,8 @@ class _Loto6FlameState extends State<Loto6Flame> {
   int _currentIndex = 0;
   final _pages = [
     const Loto6DataDisplay('Home'),
-    const Setting(),
+    const Statistics('Statistics'),
+    const Setting('Setting'),
   ];
 
   @override
@@ -60,8 +62,9 @@ class _Loto6FlameState extends State<Loto6Flame> {
       body: _pages.elementAt(_currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: '抽選結果'),
+          BottomNavigationBarItem(icon: Icon(Icons.file_open), label: '統計'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定'),
         ],
         currentIndex: _currentIndex,
         onTap: (int index) {
