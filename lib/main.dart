@@ -5,8 +5,8 @@ import 'package:sqflite/sqflite.dart';
 import 'database.dart';
 import 'data_display.dart';
 import 'loto6/loto6_flame.dart';
-import 'my_home_page.dart';
-import 'test/test1.dart';
+import 'dustbox/my_home_page.dart';
+import 'dustbox/test/test1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -58,6 +58,7 @@ Future<void> checkIfDataExistsAndCallApi() async {
     );
 
     if (table.isNotEmpty) {
+      print('display.テーブルは存在する');
       List<Map<String, dynamic>> latestDateData = await database.rawQuery(
         'SELECT date FROM n3 ORDER BY date DESC LIMIT 1',
       );
@@ -65,6 +66,7 @@ Future<void> checkIfDataExistsAndCallApi() async {
       if (latestDateData.isNotEmpty) {
         print('display.テーブルは存在する');
         String latestDate = latestDateData.first['date'];
+        print(latestDate);
         await fetchDataAndInsertToDatabase(latestDate);
       } else {
         await fetchDataAndInsertToDatabase(allDate);

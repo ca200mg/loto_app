@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loto_app/test/test2.dart';
+import 'package:loto_app/dustbox/test/test2.dart';
 
 class BottomTabBarSample extends StatefulWidget {
   const BottomTabBarSample({Key? key}) : super(key: key);
