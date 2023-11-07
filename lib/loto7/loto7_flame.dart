@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 
-import '../loto7/loto7_flame.dart';
-import 'loto6_data_display.dart';
-import 'loto6_statistics.dart';
+import '../loto6/loto6_flame.dart';
 import '../setting.dart';
+import 'loto7_data_display.dart';
+import 'loto7_statistics.dart';
 
-class Loto6Flame extends StatefulWidget {
-  const Loto6Flame({Key? key}) : super(key: key);
+class Loto7Flame extends StatefulWidget {
+  const Loto7Flame({Key? key}) : super(key: key);
 
   @override
-  State<Loto6Flame> createState() => _Loto6FlameState();
+  State<Loto7Flame> createState() => _Loto7FlameState();
 }
 
-class _Loto6FlameState extends State<Loto6Flame> {
-  
-  String _selectedPage = 'Loto6';
+class _Loto7FlameState extends State<Loto7Flame> {
 
   int _currentIndex = 0;
   final _pages = [
-    const Loto6DataDisplay('Home'),
-    const Loto6Statistics('Statistics'),
+    const Loto7DataDisplay('Home'),
+    const Loto7Statistics('Statistics'),
     const Setting('Setting'),
   ];
 
@@ -27,7 +25,7 @@ class _Loto6FlameState extends State<Loto6Flame> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Loto6'),
+        title: const Text('Loto7'),
       ),
       drawer: Drawer(
         child: ListView(

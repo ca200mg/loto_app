@@ -64,12 +64,12 @@ class Loto6BarGraph extends StatelessWidget {
         height: 200,
         child: BarChart(
           BarChartData(
-            maxY: 1000,
+            maxY: findMaxValue(countResult),
             minY: 0,
             titlesData: FlTitlesData(
               topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
               rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-              //leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true, getTitlesWidget: getLeftTitles)),
               bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: true, getTitlesWidget: getBottomTitles)),
             ),
             barGroups: myloto6barData.loto6BarData
@@ -77,21 +77,65 @@ class Loto6BarGraph extends StatelessWidget {
               (data) => BarChartGroupData(
               x: data.x,
               barRods: [
-                BarChartRodData(toY: data.y)
+                BarChartRodData(
+                  toY: data.y,
+                  width: 8,
+                  )
               ]))
               .toList(),
+              
           ),
         ),
       );
     
   }
 }
-
+Widget getLeftTitles(double value, TitleMeta meta) {
+  const style = TextStyle(
+    color: Colors.black,
+    //fontWeight: FontWeight.bold,
+    fontSize: 6,
+  );
+  Widget text;
+  switch (value.toInt()) {
+    case 0:
+      text = const Text('0', style: style);
+      break;
+    case 50:
+      text = const Text('50', style: style);
+      break;
+    case 100:
+      text = const Text('100', style: style);
+      break;
+    case 150:
+      text = const Text('150', style: style);
+      break;
+    case 200:
+      text = const Text('200', style: style);
+      break;
+    case 250:
+      text = const Text('250', style: style);
+      break;
+    case 300:
+      text = const Text('300', style: style);
+      break;
+    case 350:
+      text = const Text('350', style: style);
+      break;
+    case 400:
+      text = const Text('400', style: style);
+      break;
+    default:
+      text = const Text('', style: style);
+      break;
+  }
+  return SideTitleWidget(child: text, axisSide: meta.axisSide);
+}
 Widget getBottomTitles(double value, TitleMeta meta) {
   const style = TextStyle(
     color: Colors.black,
     //fontWeight: FontWeight.bold,
-    fontSize: 5,
+    fontSize: 6,
   );
 
   Widget text;
@@ -230,4 +274,24 @@ Widget getBottomTitles(double value, TitleMeta meta) {
       break;
   }
   return SideTitleWidget(child: text, axisSide: meta.axisSide);
+}
+
+double findMaxValue(List<dynamic> countResult) {
+  if (countResult.isEmpty) {
+    return 0; // デフォルトの返り値（任意の値に変更可能）
+  }
+
+  double max = (countResult[0] as num).toDouble(); // 最初の要素を double として設定
+
+  for (int i = 1; i < countResult.length; i++) {
+    double value = (countResult[i] as num).toDouble(); // 要素を double に変換
+    if (value > max) {
+      max = value; // より大きな値を見つけた場合、最大値を更新
+    }
+  }
+
+  int quotient = (max / 50).ceil(); // 50で割った結果を切り上げて、50の倍数の何番目かを求める
+  double nearestMultiple = quotient * 50; // 求めた位置の50の倍数を計算
+
+  return nearestMultiple;
 }
