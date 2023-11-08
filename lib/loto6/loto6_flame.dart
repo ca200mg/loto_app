@@ -13,8 +13,6 @@ class Loto6Flame extends StatefulWidget {
 }
 
 class _Loto6FlameState extends State<Loto6Flame> {
-  
-  String _selectedPage = 'Loto6';
 
   int _currentIndex = 0;
   final _pages = [

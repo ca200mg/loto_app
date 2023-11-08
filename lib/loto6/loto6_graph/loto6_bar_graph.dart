@@ -3,56 +3,57 @@ import 'package:flutter/material.dart';
 import 'package:loto_app/loto6/loto6_graph/loto6_bar_data.dart';
 
 class Loto6BarGraph extends StatelessWidget {
-  final List countResult;
-  const Loto6BarGraph({super.key, required this.countResult});
+  final List countValue;
+  final List countKey;
+  const Loto6BarGraph({super.key, required this.countKey, required this.countValue});
 
   @override
   Widget build(BuildContext context) {
     // initialize bar data
     Loto6BarData myloto6barData = Loto6BarData(
-      amount_01: countResult[0], 
-      amount_02: countResult[1], 
-      amount_03: countResult[2], 
-      amount_04: countResult[3], 
-      amount_05: countResult[4], 
-      amount_06: countResult[5], 
-      amount_07: countResult[6],
-      amount_08: countResult[7],
-      amount_09: countResult[8],
-      amount_10: countResult[9],
-      amount_11: countResult[10],
-      amount_12: countResult[11],
-      amount_13: countResult[12],
-      amount_14: countResult[13],
-      amount_15: countResult[14],
-      amount_16: countResult[15],
-      amount_17: countResult[16],
-      amount_18: countResult[17],
-      amount_19: countResult[18],
-      amount_20: countResult[19],
-      amount_21: countResult[20],
-      amount_22: countResult[21],
-      amount_23: countResult[22],
-      amount_24: countResult[23],
-      amount_25: countResult[24],
-      amount_26: countResult[25],
-      amount_27: countResult[26],
-      amount_28: countResult[27],
-      amount_29: countResult[28],
-      amount_30: countResult[29],
-      amount_31: countResult[30],
-      amount_32: countResult[31],
-      amount_33: countResult[32],
-      amount_34: countResult[33],
-      amount_35: countResult[34],
-      amount_36: countResult[35],
-      amount_37: countResult[36],
-      amount_38: countResult[37],
-      amount_39: countResult[38],
-      amount_40: countResult[39],
-      amount_41: countResult[40],
-      amount_42: countResult[41],
-      amount_43: countResult[42],
+      key_01:countKey[0],  value_01: countValue[0], 
+      key_02:countKey[1],  value_02: countValue[1], 
+      key_03:countKey[2],  value_03: countValue[2], 
+      key_04:countKey[3],  value_04: countValue[3], 
+      key_05:countKey[4],  value_05: countValue[4], 
+      key_06:countKey[5],  value_06: countValue[5], 
+      key_07:countKey[6],  value_07: countValue[6],
+      key_08:countKey[7],  value_08: countValue[7],
+      key_09:countKey[8],  value_09: countValue[8],
+      key_10:countKey[9],  value_10: countValue[9],
+      key_11:countKey[10], value_11: countValue[10],
+      key_12:countKey[11], value_12: countValue[11],
+      key_13:countKey[12], value_13: countValue[12],
+      key_14:countKey[13], value_14: countValue[13],
+      key_15:countKey[14], value_15: countValue[14],
+      key_16:countKey[15], value_16: countValue[15],
+      key_17:countKey[16], value_17: countValue[16],
+      key_18:countKey[17], value_18: countValue[17],
+      key_19:countKey[18], value_19: countValue[18],
+      key_20:countKey[19], value_20: countValue[19],
+      key_21:countKey[20], value_21: countValue[20],
+      key_22:countKey[21], value_22: countValue[21],
+      key_23:countKey[22], value_23: countValue[22],
+      key_24:countKey[23], value_24: countValue[23],
+      key_25:countKey[24], value_25: countValue[24],
+      key_26:countKey[25], value_26: countValue[25],
+      key_27:countKey[26], value_27: countValue[26],
+      key_28:countKey[27], value_28: countValue[27],
+      key_29:countKey[28], value_29: countValue[28],
+      key_30:countKey[29], value_30: countValue[29],
+      key_31:countKey[30], value_31: countValue[30],
+      key_32:countKey[31], value_32: countValue[31],
+      key_33:countKey[32], value_33: countValue[32],
+      key_34:countKey[33], value_34: countValue[33],
+      key_35:countKey[34], value_35: countValue[34],
+      key_36:countKey[35], value_36: countValue[35],
+      key_37:countKey[36], value_37: countValue[36],
+      key_38:countKey[37], value_38: countValue[37],
+      key_39:countKey[38], value_39: countValue[38],
+      key_40:countKey[39], value_40: countValue[39],
+      key_41:countKey[40], value_41: countValue[40],
+      key_42:countKey[41], value_42: countValue[41],
+      key_43:countKey[42], value_43: countValue[42],
       );
       myloto6barData.initializeLoto6BarData();
       return
@@ -64,7 +65,7 @@ class Loto6BarGraph extends StatelessWidget {
         height: 200,
         child: BarChart(
           BarChartData(
-            maxY: findMaxValue(countResult),
+            maxY: findMaxValue(countValue),
             minY: 0,
             titlesData: FlTitlesData(
               topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -75,7 +76,7 @@ class Loto6BarGraph extends StatelessWidget {
             barGroups: myloto6barData.loto6BarData
             .map(
               (data) => BarChartGroupData(
-              x: data.x,
+              x: int.parse(data.x),
               barRods: [
                 BarChartRodData(
                   toY: data.y,
@@ -276,15 +277,15 @@ Widget getBottomTitles(double value, TitleMeta meta) {
   return SideTitleWidget(child: text, axisSide: meta.axisSide);
 }
 
-double findMaxValue(List<dynamic> countResult) {
-  if (countResult.isEmpty) {
+double findMaxValue(List<dynamic> countValue) {
+  if (countValue.isEmpty) {
     return 0; // デフォルトの返り値（任意の値に変更可能）
   }
 
-  double max = (countResult[0] as num).toDouble(); // 最初の要素を double として設定
+  double max = (countValue[0] as num).toDouble(); // 最初の要素を double として設定
 
-  for (int i = 1; i < countResult.length; i++) {
-    double value = (countResult[i] as num).toDouble(); // 要素を double に変換
+  for (int i = 1; i < countValue.length; i++) {
+    double value = (countValue[i] as num).toDouble(); // 要素を double に変換
     if (value > max) {
       max = value; // より大きな値を見つけた場合、最大値を更新
     }

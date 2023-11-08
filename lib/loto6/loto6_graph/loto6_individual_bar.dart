@@ -1,5 +1,5 @@
 class Loto6IndividualBar {
-  final int x;
+  final String x;
   final double y;
   Loto6IndividualBar({
     required this.x,

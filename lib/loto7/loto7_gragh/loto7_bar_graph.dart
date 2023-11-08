@@ -70,7 +70,7 @@ class Loto7BarGraph extends StatelessWidget {
             barGroups: myloto7barData.loto7BarData
             .map(
               (data) => BarChartGroupData(
-              x: data.x,
+              x: int.parse(data.x),
               barRods: [
                 BarChartRodData(
                   toY: data.y,
@@ -126,7 +126,7 @@ Widget getLeftTitles(double value, TitleMeta meta) {
   }
   return SideTitleWidget(child: text, axisSide: meta.axisSide);
 }
-Widget getBottomTitles(double value, TitleMeta meta, countKey) {
+Widget getBottomTitles(double value, TitleMeta meta) {
   const style = TextStyle(
     color: Colors.black,
     //fontWeight: FontWeight.bold,
@@ -136,115 +136,115 @@ Widget getBottomTitles(double value, TitleMeta meta, countKey) {
   Widget text;
   switch (value.toInt()) {
     case 1:
-      text = Text(countKey[0], style: style);
+      text = Text('01', style: style);
       break;
     case 2:
-      text = Text(countKey[1], style: style);
+      text = Text('02', style: style);
       break;
     case 3:
-      text = Text(countKey[2], style: style);
+      text = Text('03', style: style);
       break;
     case 4:
-      text = Text(countKey[3], style: style);
+      text = Text('04', style: style);
       break;
     case 5:
-      text = Text(countKey[4], style: style);
+      text = Text('05', style: style);
       break;
     case 6:
-      text = Text(countKey[5], style: style);
+      text = Text('06', style: style);
       break;
     case 7:
-      text = Text(countKey[6], style: style);
+      text = Text('07', style: style);
       break;
     case 8:
-      text = Text(countKey[7], style: style);
+      text = Text('08', style: style);
       break;
     case 9:
-      text = Text(countKey[8], style: style);
+      text = Text('09', style: style);
       break;
     case 10:
-      text = Text(countKey[9], style: style);
+      text = Text('10', style: style);
       break;
     case 11:
-      text = Text(countKey[10], style: style);
+      text = Text('11', style: style);
       break;
     case 12:
-      text = Text(countKey[11], style: style);
+      text = Text('12', style: style);
       break;
     case 13:
-      text = Text(countKey[12], style: style);
+      text = Text('13', style: style);
       break;
     case 14:
-      text = Text(countKey[13], style: style);
+      text = Text('14', style: style);
       break;
     case 15:
-      text = Text(countKey[14], style: style);
+      text = Text('15', style: style);
       break;
     case 16:
-      text = Text(countKey[15], style: style);
+      text = Text('16', style: style);
       break;
     case 17:
-      text = Text(countKey[16], style: style);
+      text = Text('17', style: style);
       break;
     case 18:
-      text = Text(countKey[17], style: style);
+      text = Text('18', style: style);
       break;
     case 19:
-      text = Text(countKey[18], style: style);
+      text = Text('19', style: style);
       break;
     case 20:
-      text = Text(countKey[19], style: style);
+      text = Text('20', style: style);
       break;
     case 21:
-      text = Text(countKey[20], style: style);
+      text = Text('21', style: style);
       break;
     case 22:
-      text = Text(countKey[21], style: style);
+      text = Text('22', style: style);
       break;
     case 23:
-      text = Text(countKey[22], style: style);
+      text = Text('23', style: style);
       break;
     case 24:
-      text = Text(countKey[23], style: style);
+      text = Text('24', style: style);
       break;
     case 25:
-      text = Text(countKey[24], style: style);
+      text = Text('25', style: style);
       break;
     case 26:
-      text = Text(countKey[25], style: style);
+      text = Text('26', style: style);
       break;
     case 27:
-      text = Text(countKey[26], style: style);
+      text = Text('27', style: style);
       break;
     case 28:
-      text = Text(countKey[27], style: style);
+      text = Text('28', style: style);
       break;
     case 29:
-      text = Text(countKey[28], style: style);
+      text = Text('29', style: style);
       break;
     case 30:
-      text = Text(countKey[29], style: style);
+      text = Text('30', style: style);
       break;
     case 31:
-      text = Text(countKey[30], style: style);
+      text = Text('31', style: style);
       break;
     case 32:
-      text = Text(countKey[31], style: style);
+      text = Text('32', style: style);
       break;
     case 33:
-      text = Text(countKey[32], style: style);
+      text = Text('33', style: style);
       break;
     case 34:
-      text = Text(countKey[33], style: style);
+      text = Text('34', style: style);
       break;
     case 35:
-      text = Text(countKey[34], style: style);
+      text = Text('35', style: style);
       break;
     case 36:
-      text = Text(countKey[35], style: style);
+      text = Text('36', style: style);
       break;
     case 37:
-      text = Text(countKey[36], style: style);
+      text = Text('37', style: style);
       break;
     default:
       text = Text('', style: style);

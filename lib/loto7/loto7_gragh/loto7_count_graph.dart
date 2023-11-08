@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:loto_app/loto6/loto6_graph/loto6_bar_graph.dart';
+import 'package:loto_app/loto7/loto7_gragh/loto7_bar_graph.dart';
 import 'package:sqflite/sqflite.dart';
 
-class Loto6CountGraph extends StatefulWidget {
-  const Loto6CountGraph({super.key});
+class Loto7CountGraph extends StatefulWidget {
+  const Loto7CountGraph({super.key});
 
   @override
-  State<Loto6CountGraph> createState() => _Loto6CountGraphState();
+  State<Loto7CountGraph> createState() => _Loto7CountGraphState();
 }
 
-class _Loto6CountGraphState extends State<Loto6CountGraph> {
+class _Loto7CountGraphState extends State<Loto7CountGraph> {
   List<double> countValue = []; // 初期化
-  List<String> countKey = []; // 初期化
+  List<String> countKey = [];
   bool sortOrNot = false;
 
   @override
@@ -21,10 +21,10 @@ class _Loto6CountGraphState extends State<Loto6CountGraph> {
   }
 
   Future<void> fetchData() async {
-    Map data = await getKeyAndValueLists(sortOrNot);
+    List data = await getKeyAndValueLists(sortOrNot);
     setState(() {
-      countKey = data['keys'];
-      countValue = data['values'];
+      countKey = data[0];
+      countValue = data[1];
     });
   }
   @override
@@ -54,7 +54,7 @@ class _Loto6CountGraphState extends State<Loto6CountGraph> {
             SizedBox(
               height: 200,
               width: 400,
-              child: Loto6BarGraph(countKey: countKey, countValue: countValue,)),
+              child: Loto7BarGraph(countKey:countKey, countValue:countValue)),
             Switch(
               value: sortOrNot,
               onChanged: (value) async {
@@ -71,7 +71,7 @@ class _Loto6CountGraphState extends State<Loto6CountGraph> {
   }
 }
 
-// loto6テーブル内のmain1からmain6の各数字の出現回数をカウントする関数
+// loto7テーブル内のmain1からmain7の各数字の出現回数をカウントする関数
 Future<Map<String, int>> countMainNumbers() async {
   // データベースを開く
   final Database database = await openDatabase('lotodata.db');
@@ -79,11 +79,11 @@ Future<Map<String, int>> countMainNumbers() async {
   Map<String, int> countMap = {};
 
   if (database != null) {
-    // main1からmain6までそれぞれの数字の出現回数をカウントする
-    for (int i = 1; i <= 6; i++) {
+    // main1からmain7までそれぞれの数字の出現回数をカウントする
+    for (int i = 1; i <= 7; i++) {
       // SQLクエリを実行して、各数字ごとのカウントを取得
       List<Map<String, dynamic>> result = await database.rawQuery(
-        'SELECT main$i, COUNT(*) as count FROM loto6 GROUP BY main$i',
+        'SELECT main$i, COUNT(*) as count FROM loto7 GROUP BY main$i',
       );
 
       // クエリの結果を解析し、数字ごとの出現回数をマップに追加
@@ -101,7 +101,7 @@ Future<Map<String, int>> countMainNumbers() async {
   return countMap;
 }
 
-Future<Map> getKeyAndValueLists(bool sortedOrNot) async {
+Future<List> getKeyAndValueLists(bool sortedOrNot) async {
   // main数字ごとの出現回数を取得
   Map<String, int> counts = await countMainNumbers();
   if (sortedOrNot == true) {
@@ -116,5 +116,5 @@ Future<Map> getKeyAndValueLists(bool sortedOrNot) async {
   final List<double> values = counts.values.map((value) => value.toDouble()).toList(); // 値をdoubleに変換
   //print(values);
   // keyとvalueのリストを含むリストを返す
-  return {'keys':keys, 'values':values};
+  return [keys, values];
 }
