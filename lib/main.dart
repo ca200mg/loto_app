@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
 }
 
 Future<void> checkIfDataExistsAndCallApi() async {
-  const allDate = '2023-10-20'; //'1994-10-06';
+  const allDate = '1994-10-06';//'2023-10-20'; //
   final databasePath = await getDatabasesPath();
   final path = join(databasePath, 'lotodata.db');
   bool fileExists = await databaseExists(path);
@@ -48,6 +48,8 @@ Future<void> checkIfDataExistsAndCallApi() async {
   if (!fileExists) {
     print('display.データベースは存在しない');
     await fetchDataAndInsertToDatabase(allDate);
+    await fetchDataAndInsertToDatabaseC(allDate);
+
   } else {
     print('display.データベースは存在する');
     Database database = await openDatabase(path);
@@ -68,12 +70,16 @@ Future<void> checkIfDataExistsAndCallApi() async {
         String latestDate = latestDateData.first['date'];
         print(latestDate);
         await fetchDataAndInsertToDatabase(latestDate);
+        await fetchDataAndInsertToDatabaseC(latestDate);
+
       } else {
         await fetchDataAndInsertToDatabase(allDate);
+        await fetchDataAndInsertToDatabaseC(allDate);
       }
     } else {
       print('display.テーブルは存在しない');
       await fetchDataAndInsertToDatabase(allDate);
+      await fetchDataAndInsertToDatabaseC(allDate);
     }
   }
 }

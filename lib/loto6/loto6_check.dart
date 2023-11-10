@@ -1,11 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:loto_app/loto6/loto6_enter.dart';
 import 'package:sqflite/sqflite.dart'; // もしくはmoorなどのSQLiteパッケージ
 
 class Loto6Check extends StatefulWidget {
   final String loto6Check;
-  const Loto6Check(this.loto6Check, {Key? key}) : super(key: key);
+  // final int no;
+  // final String date;
+  // final List numberList;
+  const Loto6Check(this.loto6Check,{Key? key}) : super(key: key);
 
   @override
   _Loto6Check createState() => _Loto6Check();
@@ -31,7 +35,7 @@ class _Loto6Check extends State<Loto6Check> {
 
   Future<void> _getDataFromDatabase() async {
   // データベースにアクセスしてデータを取得する処理
-  Database database = await openDatabase('lotodata.db');
+  Database database = await openDatabase('lotodata_c.db');
   List<Map<String, dynamic>> data = await database.query(
     'loto6',
     orderBy: 'date DESC', // date列を基準に降順でデータを取得する
@@ -58,6 +62,22 @@ class _Loto6Check extends State<Loto6Check> {
                 Text('第' + _dataList[index]['no'].toString() + '回'),
                 SizedBox(width: 10.0, ),
                 Text(_dataList[index]['date']),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        int selectedNo = _dataList[index]['no'];
+                        String selectedDate = _dataList[index]['date'];
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Loto6Enter(no: selectedNo, date: selectedDate,)),
+                        );
+                      },
+                    ),
+                  ),
+                ),
               ],
             ), // 例えば、'date'カラムのデータを表示
             subtitle: Column(

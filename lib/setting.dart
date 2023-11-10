@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:loto_app/reset_c.dart';
 import 'reset.dart';
 
 class Setting extends StatelessWidget {
@@ -10,14 +10,33 @@ class Setting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      body: TextButton(onPressed: (){
-        Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => Reset()),
-  );
-      },
-      child: Text('マスターデータリセット'),
+      body: ListView(
+        children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Reset()),
+                );
+              },
+              child: Text('マスターデータリセット'),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ResetC()),
+                );
+              },
+              child: Text('ユーザデータリセット'),
+            ),
+          ),
+        ],
       ),
     );
   }

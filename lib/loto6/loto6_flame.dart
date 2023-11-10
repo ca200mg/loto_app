@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loto_app/loto6/loto6_check.dart';
 
 import '../loto7/loto7_flame.dart';
 import 'loto6_data_display.dart';
@@ -17,6 +18,7 @@ class _Loto6FlameState extends State<Loto6Flame> {
   int _currentIndex = 0;
   final _pages = [
     const Loto6DataDisplay('Home'),
+    const Loto6Check('loto6Check'),
     const Loto6Statistics('Statistics'),
     const Setting('Setting'),
   ];
@@ -70,6 +72,7 @@ class _Loto6FlameState extends State<Loto6Flame> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: '抽選結果'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: '当選確認'),
           BottomNavigationBarItem(icon: Icon(Icons.file_open), label: '統計'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定'),
         ],
