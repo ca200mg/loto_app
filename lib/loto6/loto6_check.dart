@@ -81,12 +81,21 @@ class _Loto6Check extends State<Loto6Check> {
           : ListView.builder(
               itemCount: _dataList.length,
               itemBuilder: (BuildContext context, int index) {
+                // 一致した数字の個数を数える
+                int matchingNumbersCount = _countMatchingNumbers(_userDataList
+                    .where((element) => element['no'] ==
+                        _dataList[index]['no'],)
+                    .toList(), index);
+
                 return ListTile(
                   title: Row(
                     children: [
                       Text('第' + _dataList[index]['no'].toString() + '回'),
                       SizedBox(width: 10.0),
                       Text(_dataList[index]['date']),
+                      SizedBox(width: 20,),
+                      // 一致した数字が3つ以上の場合に'当選'を表示
+                      if (matchingNumbersCount >= 3) Text('当選'),
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerRight,
@@ -132,8 +141,7 @@ class _Loto6Check extends State<Loto6Check> {
                                       style: TextStyle(
                                         color: _checkIfNumberMatches(
                                                 i['main$j'],
-                                                _dataListA[index]['main$j'],
-                                                index)
+                                                _dataListA[index]['main$j'])
                                             ? Colors.green
                                             : Colors.black,
                                       ),
@@ -162,13 +170,13 @@ class _Loto6Check extends State<Loto6Check> {
                                 Text(
                                   _dataListA[index]['bonus'].toString().padLeft(2, '0'),
                                 ),
+                                
                               ],
                             )
                           else
                             Text('未抽選'),
                         ],
                       ),
-
                     ],
                   ),
                 );
@@ -177,17 +185,21 @@ class _Loto6Check extends State<Loto6Check> {
     );
   }
 
-  bool _checkIfNumberMatches(String selectedNumber, String winningNumber, int index) {
-  // 選択された数字と当選数字を整数に変換してから比較
-  int selected = int.tryParse(selectedNumber) ?? -1;
-  int winning = int.tryParse(winningNumber) ?? -1;
-
-  if (_dataListA.length > index) {
-    return selected == winning;
+  bool _checkIfNumberMatches(String selectedNumber, String winningNumber) {
+    // 選択された数字と当選数字を整数に変換してから比較
+    return int.parse(selectedNumber) == int.parse(winningNumber);
   }
 
-  return false;
-}
-
-
+  int _countMatchingNumbers(List<Map<String, dynamic>> userData, int index) {
+    // 一致した数字の個数を数える
+    int count = 0;
+    for (final i in userData) {
+      for (int j = 1; j <= 6; j++) {
+        if (_checkIfNumberMatches(i['main$j'], _dataListA[index]['main$j'])) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
 }
