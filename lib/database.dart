@@ -58,9 +58,9 @@ Future<void> fetchDataAndInsertToDatabase(date) async {
       await db.execute(
         'CREATE TABLE IF NOT EXISTS miniloto(no INTEGER PRIMARY KEY, bonus TEXT, date TEXT, main1 TEXT, main2 TEXT, main3 TEXT, main4 TEXT, main5 TEXT)');
       await db.execute(
-        'CREATE TABLE IF NOT EXISTS n3(no INTEGER PRIMARY KEY, date TEXT, n3 TEXT)');
+        'CREATE TABLE IF NOT EXISTS n3(no INTEGER PRIMARY KEY, date TEXT, main1 INTEGER, main2 INTEGER, main3 INTEGER)');
       await db.execute(
-        'CREATE TABLE IF NOT EXISTS n4(no INTEGER PRIMARY KEY, date TEXT, n4 TEXT)');
+        'CREATE TABLE IF NOT EXISTS n4(no INTEGER PRIMARY KEY, date TEXT, main1 INTEGER, main2 INTEGER, main3 INTEGER, main4 INTEGER)');
       await db.execute(
         'CREATE TABLE IF NOT EXISTS qoo(no INTEGER PRIMARY KEY, date TEXT, main1 TEXT, main2 TEXT, main3 TEXT, main4 TEXT)');
     });
@@ -375,9 +375,9 @@ Future<void> fetchDataAndInsertToDatabaseC(date) async {
       await db.execute(
         'CREATE TABLE IF NOT EXISTS miniloto(no INTEGER PRIMARY KEY, bonus TEXT, date TEXT, main1 TEXT, main2 TEXT, main3 TEXT, main4 TEXT, main5 TEXT)');
       await db.execute(
-        'CREATE TABLE IF NOT EXISTS n3(no INTEGER PRIMARY KEY, date TEXT, n3 TEXT)');
+        'CREATE TABLE IF NOT EXISTS n3(no INTEGER PRIMARY KEY, date TEXT, main1 INTEGER, main2 INTEGER, main3 INTEGER)');
       await db.execute(
-        'CREATE TABLE IF NOT EXISTS n4(no INTEGER PRIMARY KEY, date TEXT, n4 TEXT)');
+        'CREATE TABLE IF NOT EXISTS n4(no INTEGER PRIMARY KEY, date TEXT, main1 INTEGER, main2 INTEGER, main3 INTEGER, main4 INTEGER)');
       await db.execute(
         'CREATE TABLE IF NOT EXISTS qoo(no INTEGER PRIMARY KEY, date TEXT, main1 TEXT, main2 TEXT, main3 TEXT, main4 TEXT)');
     });
@@ -529,9 +529,9 @@ Future<void> setUserDatabase() async{
       await db.execute(
         'CREATE TABLE IF NOT EXISTS miniloto(id INTEGER PRIMARY KEY, no INTEGER, date TEXT, main1 TEXT, main2 TEXT, main3 TEXT, main4 TEXT, main5 TEXT)');
       await db.execute(
-        'CREATE TABLE IF NOT EXISTS n3(id INTEGER PRIMARY KEY, no INTEGER, date TEXT, n3 TEXT)');
+        'CREATE TABLE IF NOT EXISTS n3(id INTEGER PRIMARY KEY, no INTEGER, date TEXT, main1 INTEGER, main2 INTEGER, main3 INTEGER)');
       await db.execute(
-        'CREATE TABLE IF NOT EXISTS n4(id INTEGER PRIMARY KEY, no INTEGER, date TEXT, n4 TEXT)');
+        'CREATE TABLE IF NOT EXISTS n4(id INTEGER PRIMARY KEY, no INTEGER, date TEXT, main1 INTEGER, main2 INTEGER, main3 INTEGER, main4 INTEGER)');
       await db.execute(
         'CREATE TABLE IF NOT EXISTS qoo(id INTEGER PRIMARY KEY, no INTEGER, date TEXT, main1 TEXT, main2 TEXT, main3 TEXT, main4 TEXT)');
     });

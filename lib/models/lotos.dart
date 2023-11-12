@@ -216,19 +216,25 @@ class Miniloto {
 
 class N3 {
   String date;
-  String n3;
+  int main1;
+  int main2;
+  int main3;
   int no;
 
   N3({
     required this.date,
-    required this.n3,
+    required this.main1,
+    required this.main2,
+    required this.main3,
     required this.no,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'date': date,
-      'n3': n3,
+      'main1': main1,
+      'main2': main2,
+      'main3': main3,
       'no': no,
     };
   }
@@ -236,7 +242,9 @@ class N3 {
   factory N3.fromJson(Map<String, dynamic> json) {
     return N3(
       date: json['date'],
-      n3: json['n3'],
+      main1: json['main1'],
+      main2: json['main2'],
+      main3: json['main3'],
       no: json['no'],
     );
   }
@@ -244,19 +252,28 @@ class N3 {
 
 class N4 {
   String date;
-  String n4;
+  int main1;
+  int main2;
+  int main3;
+  int main4;
   int no;
 
   N4({
     required this.date,
-    required this.n4,
+    required this.main1,
+    required this.main2,
+    required this.main3,
+    required this.main4,
     required this.no,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'date': date,
-      'n4': n4,
+      'main1': main1,
+      'main2': main2,
+      'main3': main3,
+      'main4': main4,
       'no': no,
     };
   }
@@ -264,7 +281,10 @@ class N4 {
   factory N4.fromJson(Map<String, dynamic> json) {
     return N4(
       date: json['date'],
-      n4: json['n4'],
+      main1: json['main1'],
+      main2: json['main2'],
+      main3: json['main3'],
+      main4: json['main4'],
       no: json['no'],
     );
   }

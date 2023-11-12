@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:loto_app/models/lotos.dart';
+import 'package:sqflite/sqflite.dart';
 
 class Loto6Enter extends StatefulWidget {
   final int no;
@@ -102,8 +104,12 @@ Widget build(BuildContext context) {
           },
         ),
         ElevatedButton(
-          onPressed: (numberSet.length == 6) ? () {
+          onPressed: (numberSet.length == 6) ? () async {
             // 選択した数字をLoto6Checkに渡すなどの処理を行う
+            List<int> preNumSetList1 = numberSet.toList()..sort();
+            List<String> preNumSetList2 = preNumSetList1.map((num) => num.toString()).toList();
+            await setNewLoto6Nums(widget.no, widget.date, preNumSetList2);
+            Navigator.pop(context);
             print('pressed');
           } : null, // numberSetの要素数が6でない場合、ボタンを無効にする
           child: Text('登録'),
@@ -113,5 +119,26 @@ Widget build(BuildContext context) {
     ),
   );
 }
+//numberSet.toList()..sort()
+}
 
+Future setNewLoto6Nums(int no, String date, List<String> numSetList)async{
+  final database = await openDatabase('user_database.db');
+  List<Loto6> loto6Addss = [
+      Loto6(
+        no: no,
+        date: date,
+        main1: numSetList[0],
+        main2: numSetList[1],
+        main3: numSetList[2],
+        main4: numSetList[3],
+        main5: numSetList[4],
+        main6: numSetList[5],
+        bonus: '',
+      ),
+      ];
+      // Insert the calculated values into the 'loto6' table
+      for (final loto6 in loto6Addss) {
+      await database.insert('loto6', loto6.toMap(), conflictAlgorithm: ConflictAlgorithm.ignore,);
+      }
 }

@@ -49,6 +49,7 @@ Future<void> checkIfDataExistsAndCallApi() async {
     print('display.データベースは存在しない');
     await fetchDataAndInsertToDatabase(allDate);
     await fetchDataAndInsertToDatabaseC(allDate);
+    await setUserDatabase();
 
   } else {
     print('display.データベースは存在する');
@@ -71,15 +72,18 @@ Future<void> checkIfDataExistsAndCallApi() async {
         print(latestDate);
         await fetchDataAndInsertToDatabase(latestDate);
         await fetchDataAndInsertToDatabaseC(latestDate);
+        await setUserDatabase();
 
       } else {
         await fetchDataAndInsertToDatabase(allDate);
         await fetchDataAndInsertToDatabaseC(allDate);
+        await setUserDatabase();
       }
     } else {
       print('display.テーブルは存在しない');
       await fetchDataAndInsertToDatabase(allDate);
       await fetchDataAndInsertToDatabaseC(allDate);
+      await setUserDatabase();
     }
   }
 }
