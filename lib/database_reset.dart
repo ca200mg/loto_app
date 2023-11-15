@@ -21,3 +21,14 @@ Future<void> deleteAllDataFromAllTableC() async {
     }
   });
 }
+
+Future<void> deleteAllDataFromAllTableUser() async {
+  List<String> tableNames = ['loto7', 'loto6', 'bingo', 'miniloto', 'n3', 'n4', 'qoo'];
+  Database database = await openDatabase('user_database.db');
+
+  await database.transaction((txn) async {
+    for (var tableName in tableNames) {
+      await txn.rawDelete('DELETE FROM $tableName');
+    }
+  });
+}

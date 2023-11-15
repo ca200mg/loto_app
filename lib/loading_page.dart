@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class LoadingScreen extends StatelessWidget {
 
-  LoadingScreen();
+  const LoadingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class LoadingScreen extends StatelessWidget {
           Container(
             color: const Color.fromARGB(86, 0, 0, 0).withOpacity(0.6),
             // ローディング表示
-            child: Center(
+            child: const Center(
               child: CircularProgressIndicator(),
             ),
           ),

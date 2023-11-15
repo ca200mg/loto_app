@@ -19,20 +19,20 @@ class _ResetCState extends State<ResetC> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Text('ユーザデータリセット'),
+        title: const Text('日付データリセット'),
       ),
       body: Stack(
         children: [
-          Center(
+          const Center(
             child: Column(
               children: [
                 SizedBox(height: 100,),
-                Text('ユーザデータリセットには時間がかかります。',
+                Text('日付データリセットには時間がかかります。',
                  style: TextStyle(
                   fontSize: 15, // フォントサイズを大きくする
                   // fontWeight: FontWeight.bold, // 必要に応じてフォントの太さを設定
@@ -57,7 +57,7 @@ class _ResetCState extends State<ResetC> {
             // ローディング画面へ遷移
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => LoadingScreen()),
+              MaterialPageRoute(builder: (context) => const LoadingScreen()),
             );
 
             // 非同期処理を実行（データの削除と挿入）
@@ -66,7 +66,7 @@ class _ResetCState extends State<ResetC> {
             // ローディング画面を閉じ、元の画面に戻る
             Navigator.pop(context);
           },
-              child: Text('リセットする'),
+              child: const Text('リセットする'),
             ),
           ),
         ],

@@ -31,24 +31,24 @@ class _Loto7CountGraphState extends State<Loto7CountGraph> {
   Widget build(BuildContext context) {
     if (countKey.isEmpty && countValue.isEmpty) {
       // データがまだ取得されていない場合はローディング表示などを行う
-      return Scaffold(
+      return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
     } else {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Text('データ'),
+        title: const Text('データ'),
       ),
       body: 
         Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             SizedBox(
@@ -78,22 +78,20 @@ Future<Map<String, int>> countMainNumbers() async {
   // 数字ごとのカウントを格納するマップ
   Map<String, int> countMap = {};
 
-  if (database != null) {
-    // main1からmain7までそれぞれの数字の出現回数をカウントする
-    for (int i = 1; i <= 7; i++) {
-      // SQLクエリを実行して、各数字ごとのカウントを取得
-      List<Map<String, dynamic>> result = await database.rawQuery(
-        'SELECT main$i, COUNT(*) as count FROM loto7 GROUP BY main$i',
-      );
+  // main1からmain7までそれぞれの数字の出現回数をカウントする
+  for (int i = 1; i <= 7; i++) {
+    // SQLクエリを実行して、各数字ごとのカウントを取得
+    List<Map<String, dynamic>> result = await database.rawQuery(
+      'SELECT main$i, COUNT(*) as count FROM loto7 GROUP BY main$i',
+    );
 
-      // クエリの結果を解析し、数字ごとの出現回数をマップに追加
-      for (final record in result) {
-        final number = record['main$i'] as String; // 数字 (文字列)
-        final count = record['count'] as int; // カウント数
+    // クエリの結果を解析し、数字ごとの出現回数をマップに追加
+    for (final record in result) {
+      final number = record['main$i'] as String; // 数字 (文字列)
+      final count = record['count'] as int; // カウント数
 
-        // 数字ごとの出現回数をカウントマップに追加する
-        countMap.update(number, (value) => value + count, ifAbsent: () => count);
-      }
+      // 数字ごとの出現回数をカウントマップに追加する
+      countMap.update(number, (value) => value + count, ifAbsent: () => count);
     }
   }
   //print(countMap);

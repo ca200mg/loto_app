@@ -32,36 +32,36 @@ class _Loto7FlameState extends State<Loto7Flame> {
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
+              child: Text('Drawer Header'),
             ),
-            Text('　クジを選択してください'),
+            const Text('　クジを選択してください'),
             ListTile(
-              title: Text('Loto6'),
+              title: const Text('Loto6'),
               
               onTap: () {
                 Navigator.pop(context); // ドロワーを閉じる
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => Loto6Flame()),
+                  MaterialPageRoute(builder: (context) => const Loto6Flame()),
                 );
               },
             ),
             ListTile(
-              title: Text('Loto7'),
+              title: const Text('Loto7'),
               
               onTap: () {
                 Navigator.pop(context); // ドロワーを閉じる
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => Loto7Flame()),
+                  MaterialPageRoute(builder: (context) => const Loto7Flame()),
                 );
               },
             ),
-            ListTile(
+            const ListTile(
               title: Text("Item 2"),
               trailing: Icon(Icons.arrow_forward),
             ),

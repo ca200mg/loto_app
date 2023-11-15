@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loto_app/models/lotos.dart';
+import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Loto6Enter extends StatefulWidget {
@@ -29,12 +29,12 @@ Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
       leading: IconButton(
-        icon: Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.pop(context);
         },
       ),
-      title: Text('番号入力'),
+      title: const Text('番号入力'),
     ),
     body: Column(
       children: [
@@ -42,40 +42,43 @@ Widget build(BuildContext context) {
           padding: const EdgeInsets.all(8.0),
           child: Text('第${widget.no}回   ${widget.date}'),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Wrap(
-            spacing: 4.0,
-            runSpacing: 4.0,
-            children: [
-              for (final num in numberSet.toList()..sort())
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      toggleNumber(num);
-                    },
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        num.toString().padLeft(2, '0'),
-                        style: TextStyle(fontSize: 14, color: Colors.black),
+        SizedBox(
+          height: 80,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Wrap(
+              spacing: 4.0,
+              runSpacing: 4.0,
+              children: [
+                for (final num in numberSet.toList()..sort())
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        toggleNumber(num);
+                      },
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          num.toString().padLeft(2, '0'),
+                          style: const TextStyle(fontSize: 14, color: Colors.black),
+                        ),
                       ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
         GridView.builder(
           shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 10, // 6つのボタンを1行に表示
             crossAxisSpacing: 4.0,
             mainAxisSpacing: 4.0,
@@ -97,7 +100,7 @@ Widget build(BuildContext context) {
                 alignment: Alignment.center,
                 child: Text(
                   number.toString().padLeft(2, '0'),
-                  style: TextStyle(fontSize: 15),
+                  style: const TextStyle(fontSize: 15),
                 ),
               ),
             );
@@ -109,10 +112,10 @@ Widget build(BuildContext context) {
             List<int> preNumSetList1 = numberSet.toList()..sort();
             List<String> preNumSetList2 = preNumSetList1.map((num) => num.toString()).toList();
             await setNewLoto6Nums(widget.no, widget.date, preNumSetList2);
-            Navigator.pop(context);
+            Navigator.pop(context, true);
             print('pressed');
           } : null, // numberSetの要素数が6でない場合、ボタンを無効にする
-          child: Text('登録'),
+          child: const Text('登録'),
         ),
 
       ],
@@ -123,22 +126,22 @@ Widget build(BuildContext context) {
 }
 
 Future setNewLoto6Nums(int no, String date, List<String> numSetList)async{
-  final database = await openDatabase('user_database.db');
-  List<Loto6> loto6Addss = [
-      Loto6(
-        no: no,
-        date: date,
-        main1: numSetList[0],
-        main2: numSetList[1],
-        main3: numSetList[2],
-        main4: numSetList[3],
-        main5: numSetList[4],
-        main6: numSetList[5],
-        bonus: '',
-      ),
-      ];
-      // Insert the calculated values into the 'loto6' table
-      for (final loto6 in loto6Addss) {
-      await database.insert('loto6', loto6.toMap(), conflictAlgorithm: ConflictAlgorithm.ignore,);
-      }
+  
+  String path = join(await getDatabasesPath(), 'user_database.db');
+  Database database = await openDatabase(path);
+  await database.insert(
+    'loto6',
+    {
+      'no': no,
+        'date': date,
+        'main1': numSetList[0],
+        'main2': numSetList[1],
+        'main3': numSetList[2],
+        'main4': numSetList[3],
+        'main5': numSetList[4],
+        'main6': numSetList[5],
+    }, conflictAlgorithm: ConflictAlgorithm.ignore,);
+
+    await database.close();
+      
 }

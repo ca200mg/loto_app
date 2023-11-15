@@ -13,10 +13,10 @@ class Loto7Statistics extends StatelessWidget {
       body: TextButton(onPressed: (){
         Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) =>Loto7CountGraph()),//CountLoto6()),
+    MaterialPageRoute(builder: (context) =>const Loto7CountGraph()),//CountLoto6()),
   );
       },
-      child: Text('データ'),
+      child: const Text('データ'),
       ),
     );
   }

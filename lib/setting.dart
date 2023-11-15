@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loto_app/reset_c.dart';
+import 'package:loto_app/reset_user.dart';
 import 'reset.dart';
 
 class Setting extends StatelessWidget {
@@ -18,10 +19,10 @@ class Setting extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Reset()),
+                  MaterialPageRoute(builder: (context) => const Reset()),
                 );
               },
-              child: Text('マスターデータリセット'),
+              child: const Text('マスターデータリセット'),
             ),
           ),
           Align(
@@ -30,10 +31,22 @@ class Setting extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ResetC()),
+                  MaterialPageRoute(builder: (context) => const ResetC()),
                 );
               },
-              child: Text('ユーザデータリセット'),
+              child: const Text('日付データリセット'),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ResetUsesr()),
+                );
+              },
+              child: const Text('ユーザーデータリセット'),
             ),
           ),
         ],

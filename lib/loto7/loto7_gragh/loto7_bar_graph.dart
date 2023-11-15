@@ -5,7 +5,7 @@ import 'package:loto_app/loto7/loto7_gragh/loto7_bar_data.dart';
 class Loto7BarGraph extends StatelessWidget {
   final List<double> countValue;
   final List<String> countKey;
-  Loto7BarGraph({super.key, required this.countValue, required this.countKey});
+  const Loto7BarGraph({super.key, required this.countValue, required this.countKey});
 
   @override
   Widget build(BuildContext context) {
@@ -54,14 +54,14 @@ class Loto7BarGraph extends StatelessWidget {
     // Transform.rotate(
     //   angle: 1.5708, // 90度のラジアン
     //   child:
-    Container(
+    SizedBox(
         width: 200,
         height: 200,
         child: BarChart(
           BarChartData(
             maxY: findMaxValue(countValue),
             minY: 0,
-            titlesData: FlTitlesData(
+            titlesData: const FlTitlesData(
               topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
               rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
               leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true, getTitlesWidget: getLeftTitles)),
@@ -124,7 +124,7 @@ Widget getLeftTitles(double value, TitleMeta meta) {
       text = const Text('', style: style);
       break;
   }
-  return SideTitleWidget(child: text, axisSide: meta.axisSide);
+  return SideTitleWidget(axisSide: meta.axisSide, child: text);
 }
 Widget getBottomTitles(double value, TitleMeta meta) {
   const style = TextStyle(
@@ -136,121 +136,121 @@ Widget getBottomTitles(double value, TitleMeta meta) {
   Widget text;
   switch (value.toInt()) {
     case 1:
-      text = Text('01', style: style);
+      text = const Text('01', style: style);
       break;
     case 2:
-      text = Text('02', style: style);
+      text = const Text('02', style: style);
       break;
     case 3:
-      text = Text('03', style: style);
+      text = const Text('03', style: style);
       break;
     case 4:
-      text = Text('04', style: style);
+      text = const Text('04', style: style);
       break;
     case 5:
-      text = Text('05', style: style);
+      text = const Text('05', style: style);
       break;
     case 6:
-      text = Text('06', style: style);
+      text = const Text('06', style: style);
       break;
     case 7:
-      text = Text('07', style: style);
+      text = const Text('07', style: style);
       break;
     case 8:
-      text = Text('08', style: style);
+      text = const Text('08', style: style);
       break;
     case 9:
-      text = Text('09', style: style);
+      text = const Text('09', style: style);
       break;
     case 10:
-      text = Text('10', style: style);
+      text = const Text('10', style: style);
       break;
     case 11:
-      text = Text('11', style: style);
+      text = const Text('11', style: style);
       break;
     case 12:
-      text = Text('12', style: style);
+      text = const Text('12', style: style);
       break;
     case 13:
-      text = Text('13', style: style);
+      text = const Text('13', style: style);
       break;
     case 14:
-      text = Text('14', style: style);
+      text = const Text('14', style: style);
       break;
     case 15:
-      text = Text('15', style: style);
+      text = const Text('15', style: style);
       break;
     case 16:
-      text = Text('16', style: style);
+      text = const Text('16', style: style);
       break;
     case 17:
-      text = Text('17', style: style);
+      text = const Text('17', style: style);
       break;
     case 18:
-      text = Text('18', style: style);
+      text = const Text('18', style: style);
       break;
     case 19:
-      text = Text('19', style: style);
+      text = const Text('19', style: style);
       break;
     case 20:
-      text = Text('20', style: style);
+      text = const Text('20', style: style);
       break;
     case 21:
-      text = Text('21', style: style);
+      text = const Text('21', style: style);
       break;
     case 22:
-      text = Text('22', style: style);
+      text = const Text('22', style: style);
       break;
     case 23:
-      text = Text('23', style: style);
+      text = const Text('23', style: style);
       break;
     case 24:
-      text = Text('24', style: style);
+      text = const Text('24', style: style);
       break;
     case 25:
-      text = Text('25', style: style);
+      text = const Text('25', style: style);
       break;
     case 26:
-      text = Text('26', style: style);
+      text = const Text('26', style: style);
       break;
     case 27:
-      text = Text('27', style: style);
+      text = const Text('27', style: style);
       break;
     case 28:
-      text = Text('28', style: style);
+      text = const Text('28', style: style);
       break;
     case 29:
-      text = Text('29', style: style);
+      text = const Text('29', style: style);
       break;
     case 30:
-      text = Text('30', style: style);
+      text = const Text('30', style: style);
       break;
     case 31:
-      text = Text('31', style: style);
+      text = const Text('31', style: style);
       break;
     case 32:
-      text = Text('32', style: style);
+      text = const Text('32', style: style);
       break;
     case 33:
-      text = Text('33', style: style);
+      text = const Text('33', style: style);
       break;
     case 34:
-      text = Text('34', style: style);
+      text = const Text('34', style: style);
       break;
     case 35:
-      text = Text('35', style: style);
+      text = const Text('35', style: style);
       break;
     case 36:
-      text = Text('36', style: style);
+      text = const Text('36', style: style);
       break;
     case 37:
-      text = Text('37', style: style);
+      text = const Text('37', style: style);
       break;
     default:
-      text = Text('', style: style);
+      text = const Text('', style: style);
       break;
   }
-  return SideTitleWidget(child: text, axisSide: meta.axisSide);
+  return SideTitleWidget(axisSide: meta.axisSide, child: text);
 }
 
 double findMaxValue(List<dynamic> countValue) {

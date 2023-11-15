@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //1.http通信に必要なデータ
     final uri = Uri.https('appsicoded.com', 'get_loto_results', {
       'pw': 'doraemon810',
-      'date': '$date',
+      'date': date,
     });
     final http.Response res = await http.get(uri, headers: {
       
@@ -66,7 +66,7 @@ void initState() {
 
 Widget _buildBody() {
   if (apis.bingo5.isEmpty) {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(), // データを取得中にプログレスインジケーターを表示
     );
   } else {
@@ -104,11 +104,11 @@ Widget build(BuildContext context) {
                 _textController.clear();
               });
             },
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               color: Colors.black,
             ),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: 'Enter a search term',
             ),
           ),

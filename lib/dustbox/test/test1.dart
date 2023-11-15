@@ -25,30 +25,30 @@ class _BottomTabBarSampleState extends State<BottomTabBarSample> {
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
+              child: Text('Drawer Header'),
             ),
-            Text('　クジを選択してください'),
+            const Text('　クジを選択してください'),
             ListTile(
               title: TextButton(
                 onPressed: () {
                   
                 },
-                child: Text("Loto6"),),
-              trailing: Icon(Icons.arrow_forward),
+                child: const Text("Loto6"),),
+              trailing: const Icon(Icons.arrow_forward),
             ),
             ListTile(
               title: TextButton(
                 onPressed: () {
                   
                 },
-                child: Text("Loto7"),),
-              trailing: Icon(Icons.arrow_forward),
+                child: const Text("Loto7"),),
+              trailing: const Icon(Icons.arrow_forward),
             ),
-            ListTile(
+            const ListTile(
               title: Text("Item 2"),
               trailing: Icon(Icons.arrow_forward),
             ),

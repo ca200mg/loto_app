@@ -3,17 +3,14 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'database.dart';
-import 'data_display.dart';
 import 'loto6/loto6_flame.dart';
-import 'dustbox/my_home_page.dart';
-import 'dustbox/test/test1.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +25,10 @@ class MyApp extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // まだデータベースの処理が完了していない場合、ローディングインジケータを表示
-            return Scaffold(body: Center(child: CircularProgressIndicator()));
+            return const Scaffold(body: Center(child: CircularProgressIndicator()));
           } else {
             // データベースの処理が完了した場合は、Loto6Flameを表示
-            return Loto6Flame();
+            return const Loto6Flame();
           }
         },
       ),

@@ -51,7 +51,7 @@ class _Loto7Check extends State<Loto7Check> {
     return Scaffold(
       
       body: _isLoading
-          ? Center(child: CircularProgressIndicator()) // データが読み込まれるまでローディング表示
+          ? const Center(child: CircularProgressIndicator()) // データが読み込まれるまでローディング表示
           : ListView.builder(
         itemCount: _dataList.length,
         itemBuilder: (BuildContext context, int index) {
@@ -59,14 +59,14 @@ class _Loto7Check extends State<Loto7Check> {
           return ListTile(
             title: Row(
               children: [
-                Text('第' + _dataList[index]['no'].toString() + '回'),
-                SizedBox(width: 10.0, ),
+                Text('第${_dataList[index]['no']}回'),
+                const SizedBox(width: 10.0, ),
                 Text(_dataList[index]['date']),
                 Expanded(
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: IconButton(
-                      icon: Icon(Icons.add),
+                      icon: const Icon(Icons.add),
                       onPressed: () {
                         int selectedNo = _dataList[index]['no'];
                         String selectedDate = _dataList[index]['date'];
@@ -85,28 +85,28 @@ class _Loto7Check extends State<Loto7Check> {
                 Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('本数字'),
-                  SizedBox(width: 24.0, ),
+                  const Text('本数字'),
+                  const SizedBox(width: 24.0, ),
                   Text(_dataList[index]['main1']),
-                  SizedBox(width: 10.0, ),
+                  const SizedBox(width: 10.0, ),
                   Text(_dataList[index]['main2']),
-                  SizedBox(width: 10.0, ),
+                  const SizedBox(width: 10.0, ),
                   Text(_dataList[index]['main3']),
-                  SizedBox(width: 10.0, ),
+                  const SizedBox(width: 10.0, ),
                   Text(_dataList[index]['main4']),
-                  SizedBox(width: 10.0, ),
+                  const SizedBox(width: 10.0, ),
                   Text(_dataList[index]['main5']),
-                  SizedBox(width: 10.0, ),
+                  const SizedBox(width: 10.0, ),
                   Text(_dataList[index]['main6']),
                 ],
                 ),
                 Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('ボーナス'),
-                  SizedBox(width: 10.0, ),
+                  const Text('ボーナス'),
+                  const SizedBox(width: 10.0, ),
                   Text(_dataList[index]['bonus1']),
-                  SizedBox(width: 10.0, ),
+                  const SizedBox(width: 10.0, ),
                   Text(_dataList[index]['bonus2']),
                 ],
                 ),

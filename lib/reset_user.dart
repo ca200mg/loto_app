@@ -4,14 +4,14 @@ import 'database.dart';
 import 'database_reset.dart';
 import 'loading_page.dart';
 
-class Reset extends StatefulWidget {
-  const Reset({Key? key}) : super(key: key);
+class ResetUsesr extends StatefulWidget {
+  const ResetUsesr({Key? key}) : super(key: key);
 
   @override
-  _ResetState createState() => _ResetState();
+  _ResetUsesrState createState() => _ResetUsesrState();
 }
 
-class _ResetState extends State<Reset> {
+class _ResetUsesrState extends State<ResetUsesr> {
   bool _isLoading = false;
 
   @override
@@ -24,7 +24,7 @@ class _ResetState extends State<Reset> {
             Navigator.pop(context);
           },
         ),
-        title: const Text('マスターデータリセット'),
+        title: const Text('ユーザーデータリセット'),
       ),
       body: Stack(
         children: [
@@ -32,7 +32,7 @@ class _ResetState extends State<Reset> {
             child: Column(
               children: [
                 SizedBox(height: 100,),
-                Text('マスターデータリセットには時間がかかります。',
+                Text('ユーザーデータリセットには時間がかかります。',
                  style: TextStyle(
                   fontSize: 15, // フォントサイズを大きくする
                   // fontWeight: FontWeight.bold, // 必要に応じてフォントの太さを設定
@@ -61,7 +61,7 @@ class _ResetState extends State<Reset> {
             );
 
             // 非同期処理を実行（データの削除と挿入）
-            await _deleteAndInsertData('1994-10-06');
+            await _deleteAndInsertData();
 
             // ローディング画面を閉じ、元の画面に戻る
             Navigator.pop(context);
@@ -74,16 +74,16 @@ class _ResetState extends State<Reset> {
     );
   }
 
-  Future<void> _deleteAndInsertData(String date) async {
+  Future<void> _deleteAndInsertData() async {
     setState(() {
       _isLoading = true;
     });
 
     // データの削除
-    await deleteAllDataFromAllTable();
+    await deleteAllDataFromAllTableUser();
 
     // データの挿入
-    await fetchDataAndInsertToDatabase(date);
+    await setUserDatabase();
 
     setState(() {
       _isLoading = false;

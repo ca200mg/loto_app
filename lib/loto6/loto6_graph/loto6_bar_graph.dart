@@ -60,14 +60,14 @@ class Loto6BarGraph extends StatelessWidget {
     // Transform.rotate(
     //   angle: 1.5708, // 90度のラジアン
     //   child:
-    Container(
+    SizedBox(
         width: 200,
         height: 200,
         child: BarChart(
           BarChartData(
             maxY: findMaxValue(countValue),
             minY: 0,
-            titlesData: FlTitlesData(
+            titlesData: const FlTitlesData(
               topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
               rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
               leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true, getTitlesWidget: getLeftTitles)),
@@ -130,7 +130,7 @@ Widget getLeftTitles(double value, TitleMeta meta) {
       text = const Text('', style: style);
       break;
   }
-  return SideTitleWidget(child: text, axisSide: meta.axisSide);
+  return SideTitleWidget(axisSide: meta.axisSide, child: text);
 }
 Widget getBottomTitles(double value, TitleMeta meta) {
   const style = TextStyle(
@@ -274,7 +274,7 @@ Widget getBottomTitles(double value, TitleMeta meta) {
       text = const Text('', style: style);
       break;
   }
-  return SideTitleWidget(child: text, axisSide: meta.axisSide);
+  return SideTitleWidget(axisSide: meta.axisSide, child: text);
 }
 
 double findMaxValue(List<dynamic> countValue) {

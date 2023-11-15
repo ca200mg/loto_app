@@ -81,7 +81,7 @@ class _DataDisplayPageState extends State<DataDisplayPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Database Data Display'),
+        title: const Text('Database Data Display'),
       ),
       body: ListView.builder(
         itemCount: _dataList.length,
@@ -94,18 +94,18 @@ class _DataDisplayPageState extends State<DataDisplayPage> {
                 Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('本数字'),
-                  SizedBox(width: 24.0, ),
+                  const Text('本数字'),
+                  const SizedBox(width: 24.0, ),
                   Text(_dataList[index]['main1']),
-                  SizedBox(width: 10.0, ),
+                  const SizedBox(width: 10.0, ),
                   Text(_dataList[index]['main2']),
                 ],
                 ),
                 Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('ボーナス'),
-                  SizedBox(width: 10.0, ),
+                  const Text('ボーナス'),
+                  const SizedBox(width: 10.0, ),
                   Text(_dataList[index]['bonus']),
                 ],
                 ),

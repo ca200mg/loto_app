@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:loto_app/dustbox/bar%20graph/bar_graph.dart';
 
 // void main() {
