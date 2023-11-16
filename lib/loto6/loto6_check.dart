@@ -185,6 +185,11 @@ class _Loto6Check extends State<Loto6Check> {
                                       ),
                                     ),
                                   ),
+                                  
+                                    Text(_countMatchingNumbers(index, 
+                                    // _userDataList.where((element) => element['no'] == _dataList[index]['no']).toList(),
+                                    i['main1'],i['main2'],i['main3'],i['main4'],i['main5'],i['main6'],
+                                    _dataListA)),
                                   // Padding(
                                   //   padding: const EdgeInsets.only(right: 8.0),
                                   //   child: Text(
@@ -220,7 +225,7 @@ class _Loto6Check extends State<Loto6Check> {
                                   ),
                                 Text(
                                   _dataListA[index]['bonus'].toString().padLeft(2, '0'),
-                                  style:TextStyle(color: Colors.blue)
+                                  style:const TextStyle(color: Colors.blue)
                                 ),
                               ],
                             )
@@ -252,6 +257,7 @@ class _Loto6Check extends State<Loto6Check> {
     }
     return count;
   }
+
   Color _checkIfNumberMatchesColor(int number){
     int num = number;
     Color color;
@@ -278,46 +284,85 @@ class _Loto6Check extends State<Loto6Check> {
   // }
 
   //一致する数字の数をカウントする関数
-  String _countMatchingNumbers(List<Map<String, dynamic>> userData, int index) {
+  String _countMatchingNumbers(int index, 
+  // List<Map<String, dynamic>> selectedNumbers, 
+  String selectedNumber1,
+  String selectedNumber2,
+  String selectedNumber3,
+  String selectedNumber4,
+  String selectedNumber5,
+  String selectedNumber6,
+  List<Map<String, dynamic>> winningNumbers, ) {
     int count = 0;
     String allcount = '';
-    for (final i in userData) {
-      for (int j = 1; j <= 6; j++) {
-        count += _checkIfNumberMatches(index,i['main$j'], _dataListA);
-                 
-        
-        // if (count >= 3){
-        //   allcount = 3;
-        // }
-        switch (count){
-          case 0:
-            allcount = '';
-            break;
-          case 1:
-            allcount = '';
-            break;
-          case 2:
-            allcount = '';
-            break;
-          case 3:
-            allcount = '5';
-            break;
-          case 4:
-            allcount = '4';
-            break;
-          case 5:
-            allcount = '3';
-            break;
-          case 6:
-            allcount = '1';
-            break;
-          default:
-            allcount = '2';
-            break;
+    bool bonus = false;
+    int selected = 0;
+    int winning = 0;
+    int bonuss = 0;
+    
+    List<String>selectedNumbers = [selectedNumber1,selectedNumber2,selectedNumber3,selectedNumber4,selectedNumber5,selectedNumber6];
+
+    for (int l = 0; l < selectedNumbers.length; l++) {
+      selected = int.tryParse(selectedNumbers[l]) ?? 0;
+      for (int k = 1; k <= 6; k++){
+        winning = int.tryParse(winningNumbers[index]['main$k']) ?? 0;
+        if(selected == winning){
+          count ++;
         }
       }
-      count = 0;
+      bonuss = int.tryParse(winningNumbers[index]['bonus']) ?? 0;
+      if(selected == bonuss){
+        bonus = true;
+      }
     }
+    // length = selectedNumbers.length;
+    // for(int n = 0; n <length; n++){
+    // for(int l = 1; l <= 6; l++){
+    //   selected = int.tryParse(selectedNumbers[n]['main$l']) ?? 0;
+    //   bonuss = int.tryParse(winningNumbers[index]['bonus']) ?? 0;
+    //   if(selected == bonuss){
+    //     bonus = true;
+    //   }
+    //   for (int k = 1; k <= 6; k++){
+    //     winning = int.tryParse(winningNumbers[index]['main$k']) ?? 0;
+    //     if(selected == winning){
+    //       count ++;
+    //     }
+    //   }
+    // }
+    // }   
+    switch (count){
+      case 0:
+        allcount = '';
+        break;
+      case 1:
+        allcount = '';
+        break;
+      case 2:
+        allcount = '';
+        break;
+      case 3:
+        allcount = '5等';
+        break;
+      case 4:
+        allcount = '4等';
+        break;
+      case 5:
+        if(bonus){
+          allcount = '2等';
+        }else{
+          allcount = '3等';
+        }       
+        break;
+      case 6:
+        allcount = '1等';
+        break;
+      default:
+        allcount = '';
+        break;
+    }
+    
     return allcount;
   }
+  
 }

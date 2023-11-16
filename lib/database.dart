@@ -127,12 +127,8 @@ Map<String, dynamic> adjustData(Map<String, dynamic> originalData) {
 Future<void> loto6calculateAfterDatesAndInsertData(String tableName, Database database) async {
   DateTime latestDate;
   DateTime after1;
-  DateTime after2;
-  DateTime after3;
   int latestNo;
   int no1;
-  int no2;
-  int no3;
 
   // 飛ばす日付の条件（12-31から01-03）
   bool shouldSkipDate(DateTime date) {
@@ -191,11 +187,12 @@ Future<void> loto6calculateAfterDatesAndInsertData(String tableName, Database da
         main6: '',
         bonus: '',
       ),
-      ];
-      // Insert the calculated values into the 'loto6' table
-      for (final loto6 in loto6Addss) {
-      await database.insert('loto6', loto6.toMap(), conflictAlgorithm: ConflictAlgorithm.ignore,);
-      }
+  ];
+
+  // Insert the calculated values into the 'loto6' table
+  for (final loto6 in loto6Addss) {
+  await database.insert('loto6', loto6.toMap(), conflictAlgorithm: ConflictAlgorithm.ignore,);
+  }
 }
 
 Future<Map<String, dynamic>> loto7calculateAfterDates(String tableName, Database database) async {
@@ -219,7 +216,7 @@ Future<Map<String, dynamic>> loto7calculateAfterDates(String tableName, Database
     date = date.add(const Duration(days: 1));
   }
   return date;
-}
+  }
 
   // 1. 最新の日付を取得
   final latestDateResult = await database.rawQuery('SELECT MAX(date) AS latestDate FROM $tableName');
@@ -274,21 +271,22 @@ Future<Map<String, dynamic>> loto7calculateAfterDates(String tableName, Database
     'no2': no2,
     'no3': no3,};
 }
-Future<bool> checkDateIn1Month(String tableName, Database database) async{
-  DateTime latestDate;
-  final currentDate = DateTime.now();
-  final oneMonthLater = currentDate.add(const Duration(days: 30));
 
-  final latestDateResult = await database.rawQuery('SELECT MAX(date) AS latestDate FROM $tableName');
-  final latestDateStr = latestDateResult[0]['latestDate'] as String;
-  latestDate = DateTime.parse(latestDateStr);
+// Future<bool> checkDateIn1Month(String tableName, Database database) async{
+//   DateTime latestDate;
+//   final currentDate = DateTime.now();
+//   final oneMonthLater = currentDate.add(const Duration(days: 30));
 
-  if (latestDate.isBefore(oneMonthLater)){
-    return true;
-  }else{
-    return false;
-  }
-}
+//   final latestDateResult = await database.rawQuery('SELECT MAX(date) AS latestDate FROM $tableName');
+//   final latestDateStr = latestDateResult[0]['latestDate'] as String;
+//   latestDate = DateTime.parse(latestDateStr);
+
+//   if (latestDate.isBefore(oneMonthLater)){
+//     return true;
+//   }else{
+//     return false;
+//   }
+// }
 Future<int> checkNo(String tableName, Database databaseA, Database database) async {
   final currentNoResult = await databaseA.rawQuery('SELECT MAX(no) AS currentNo FROM $tableName');
   final currentNo = currentNoResult[0]['currentNo'];
