@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:loto_app/loto7/loto7_gragh/loto7_count_graph.dart';
+import 'package:loto_app/miniloto/miniloto_graph/miniloto_count_graph.dart';
 
-class Loto7Statistics extends StatelessWidget {
+class MinilotoStatistics extends StatelessWidget {
   final String statistics;
 
-  const Loto7Statistics(this.statistics, {Key? key}) : super(key: key);
+  const MinilotoStatistics(this.statistics, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class Loto7Statistics extends StatelessWidget {
       body: TextButton(onPressed: (){
         Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) =>const Loto7CountGraph()),
+    MaterialPageRoute(builder: (context) =>const MinilotoCountGraph()),//CountLoto6()),
   );
       },
       child: const Text('データ'),

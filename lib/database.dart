@@ -195,15 +195,11 @@ Future<void> loto6calculateAfterDatesAndInsertData(String tableName, Database da
   }
 }
 
-Future<Map<String, dynamic>> loto7calculateAfterDates(String tableName, Database database) async {
+Future<void> loto7calculateAfterDatesAndInsertData(String tableName, Database database) async {
   DateTime latestDate;
   DateTime after1;
-  DateTime after2;
-  DateTime after3;
   int latestNo;
   int no1;
-  int no2;
-  int no3;
 
   // 飛ばす日付の条件（12-31から01-03）
   bool shouldSkipDate(DateTime date) {
@@ -226,27 +222,17 @@ Future<Map<String, dynamic>> loto7calculateAfterDates(String tableName, Database
   // 2. after1の計算
   after1 = getNextFriday(latestDate.add(const Duration(days: 1)));
   if (shouldSkipDate(after1)) {
+    while(shouldSkipDate(after1)){
     after1 = getNextFriday(after1.add(const Duration(days: 1)));
-  }
-  
-  // 3. after2の計算
-  after2 = getNextFriday(after1.add(const Duration(days: 1)));
-  if (shouldSkipDate(after2)) {
-    after2 = getNextFriday(after2.add(const Duration(days: 1)));
+    }
   }
 
-  // 4. after3の計算
-  after3 = getNextFriday(after2.add(const Duration(days: 1)));
-  if (shouldSkipDate(after3)) {
-    after3 = getNextFriday(after3.add(const Duration(days: 1)));
-  }
-
+  // 最新のnoを取得
   final latestNoResult = await database.rawQuery('SELECT MAX(no) AS latestNo FROM $tableName');
   final latestNoInt = latestNoResult[0]['latestNo'] as int;
   latestNo = latestNoInt;
+  // no1の計算
   no1 = latestNo + 1;
-  no2 = latestNo + 2;
-  no3 = latestNo + 3;
 
   // Format DateTime objects to strings
   String formatDate(DateTime date) {
@@ -255,38 +241,248 @@ Future<Map<String, dynamic>> loto7calculateAfterDates(String tableName, Database
 
   print(latestNo);
   print('no1: $no1');
-  print('no2: $no2');
-  print('no3: $no3');
+
 
   print('Latest Date: $latestDate');
   print('After1: ${formatDate(after1)}');
-  print('After2: $after2');
-  print('After3: $after3');
 
-  return {'latestDate': formatDate(latestDate),
-    'after1': formatDate(after1),
-    'after2': formatDate(after2),
-    'after3': formatDate(after3),
-    'no1': no1,
-    'no2': no2,
-    'no3': no3,};
+  // データを作成し、テーブルへ挿入
+  List<Loto7> loto7Addss = [
+      Loto7(
+        no: no1,
+        date: formatDate(after1),
+        main1: '',
+        main2: '',
+        main3: '',
+        main4: '',
+        main5: '',
+        main6: '',
+        main7: '',
+        bonus1: '',
+        bonus2: '',
+      ),
+  ];
+
+  // Insert the calculated values into the 'loto6' table
+  for (final loto7 in loto7Addss) {
+  await database.insert('loto7', loto7.toMap(), conflictAlgorithm: ConflictAlgorithm.ignore,);
+  }
 }
 
-// Future<bool> checkDateIn1Month(String tableName, Database database) async{
-//   DateTime latestDate;
-//   final currentDate = DateTime.now();
-//   final oneMonthLater = currentDate.add(const Duration(days: 30));
+Future<void> minilotoCalculateAfterDatesAndInsertData(String tableName, Database database) async {
+  DateTime latestDate;
+  DateTime after1;
+  int latestNo;
+  int no1;
 
-//   final latestDateResult = await database.rawQuery('SELECT MAX(date) AS latestDate FROM $tableName');
-//   final latestDateStr = latestDateResult[0]['latestDate'] as String;
-//   latestDate = DateTime.parse(latestDateStr);
+  // 飛ばす日付の条件（12-31から01-03）
+  bool shouldSkipDate(DateTime date) {
+    return date.month == 12 && date.day >= 31 || date.month == 1 && date.day <= 3;
+  }
 
-//   if (latestDate.isBefore(oneMonthLater)){
-//     return true;
-//   }else{
-//     return false;
-//   }
-// }
+  //次の火曜日を取得する関数
+  DateTime getNextTuesday(DateTime date) {
+  while (date.weekday != DateTime.tuesday) {
+    date = date.add(const Duration(days: 1));
+  }
+  return date;
+  }
+
+  // 1. 最新の日付を取得
+  final latestDateResult = await database.rawQuery('SELECT MAX(date) AS latestDate FROM $tableName');
+  final latestDateStr = latestDateResult[0]['latestDate'] as String;
+  latestDate = DateTime.parse(latestDateStr);
+
+  // 2. after1の計算
+  after1 = getNextTuesday(latestDate.add(const Duration(days: 1)));
+  if (shouldSkipDate(after1)) {
+    while(shouldSkipDate(after1)){
+    after1 = getNextTuesday(after1.add(const Duration(days: 1)));
+    }
+  }
+
+  // 最新のnoを取得
+  final latestNoResult = await database.rawQuery('SELECT MAX(no) AS latestNo FROM $tableName');
+  final latestNoInt = latestNoResult[0]['latestNo'] as int;
+  latestNo = latestNoInt;
+  // no1の計算
+  no1 = latestNo + 1;
+
+  // Format DateTime objects to strings
+  String formatDate(DateTime date) {
+    return DateFormat('yyyy-MM-dd').format(date);
+  }
+
+  print(latestNo);
+  print('no1: $no1');
+
+
+  print('Latest Date: $latestDate');
+  print('After1: ${formatDate(after1)}');
+
+  // データを作成し、テーブルへ挿入
+  List<Miniloto> minilotoAddss = [
+      Miniloto(
+        no: no1,
+        date: formatDate(after1),
+        main1: '',
+        main2: '',
+        main3: '',
+        main4: '',
+        main5: '',
+        bonus: '',
+      ),
+  ];
+
+  // Insert the calculated values into the 'loto6' table
+  for (final miniloto in minilotoAddss) {
+  await database.insert('miniloto', miniloto.toMap(), conflictAlgorithm: ConflictAlgorithm.ignore,);
+  }
+}
+
+Future<void> n4CalculateAfterDatesAndInsertData(String tableName, Database database) async {
+  DateTime latestDate;
+  DateTime after1;
+  int latestNo;
+  int no1;
+
+  // 飛ばす日付の条件（12-31から01-03）
+  bool shouldSkipDate(DateTime date) {
+    return date.month == 12 && date.day >= 31 || date.month == 1 && date.day <= 3;
+  }
+
+  // 次の月曜日または木曜日を取得する関数
+  DateTime getNextMondayOrThursday(DateTime date) {
+    while (date.weekday != DateTime.monday 
+            && date.weekday != DateTime.tuesday
+            && date.weekday != DateTime.wednesday
+            && date.weekday != DateTime.thursday
+            && date.weekday != DateTime.friday) {
+      date = date.add(const Duration(days: 1));
+    }
+    return date;
+  }
+
+  // 1. 最新の日付を取得
+  final latestDateResult = await database.rawQuery('SELECT MAX(date) AS latestDate FROM $tableName');
+  final latestDateStr = latestDateResult[0]['latestDate'] as String;
+  latestDate = DateTime.parse(latestDateStr);
+
+  // 2. after1の計算
+  after1 = getNextMondayOrThursday(latestDate.add(const Duration(days: 1)));
+  if (shouldSkipDate(after1)) {
+    while(shouldSkipDate(after1)){
+    after1 = getNextMondayOrThursday(after1.add(const Duration(days: 1)));
+    }
+  }
+  // 最新のnoを取得
+  final latestNoResult = await database.rawQuery('SELECT MAX(no) AS latestNo FROM $tableName');
+  final latestNoInt = latestNoResult[0]['latestNo'] as int;
+  latestNo = latestNoInt;
+  // no1の計算
+  no1 = latestNo + 1;
+
+  // Format DateTime objects to strings
+  String formatDate(DateTime date) {
+    return DateFormat('yyyy-MM-dd').format(date);
+  }
+
+  print(latestNo);
+  print('no1: $no1');
+
+
+  print('Latest Date: $latestDate');
+  print('After1: ${formatDate(after1)}');
+
+  // データを作成し、テーブルへ挿入
+  List<N4> n4Addss = [
+      N4(
+        no: no1,
+        date: formatDate(after1),
+        main1: 10,
+        main2: 10,
+        main3: 10,
+        main4: 10,
+      ),
+  ];
+
+  // Insert the calculated values into the 'n4' table
+  for (final n4 in n4Addss) {
+  await database.insert('n4', n4.toMap(), conflictAlgorithm: ConflictAlgorithm.ignore,);
+  }
+}
+
+Future<void> n3CalculateAfterDatesAndInsertData(String tableName, Database database) async {
+  DateTime latestDate;
+  DateTime after1;
+  int latestNo;
+  int no1;
+
+  // 飛ばす日付の条件（12-31から01-03）
+  bool shouldSkipDate(DateTime date) {
+    return date.month == 12 && date.day >= 31 || date.month == 1 && date.day <= 3;
+  }
+
+  // 次の月曜日または木曜日を取得する関数
+  DateTime getNextMondayOrThursday(DateTime date) {
+    while (date.weekday != DateTime.monday 
+            && date.weekday != DateTime.tuesday
+            && date.weekday != DateTime.wednesday
+            && date.weekday != DateTime.thursday
+            && date.weekday != DateTime.friday) {
+      date = date.add(const Duration(days: 1));
+    }
+    return date;
+  }
+
+  // 1. 最新の日付を取得
+  final latestDateResult = await database.rawQuery('SELECT MAX(date) AS latestDate FROM $tableName');
+  final latestDateStr = latestDateResult[0]['latestDate'] as String;
+  latestDate = DateTime.parse(latestDateStr);
+
+  // 2. after1の計算
+  after1 = getNextMondayOrThursday(latestDate.add(const Duration(days: 1)));
+  if (shouldSkipDate(after1)) {
+    while(shouldSkipDate(after1)){
+    after1 = getNextMondayOrThursday(after1.add(const Duration(days: 1)));
+    }
+  }
+  // 最新のnoを取得
+  final latestNoResult = await database.rawQuery('SELECT MAX(no) AS latestNo FROM $tableName');
+  final latestNoInt = latestNoResult[0]['latestNo'] as int;
+  latestNo = latestNoInt;
+  // no1の計算
+  no1 = latestNo + 1;
+
+  // Format DateTime objects to strings
+  String formatDate(DateTime date) {
+    return DateFormat('yyyy-MM-dd').format(date);
+  }
+
+  print(latestNo);
+  print('no1: $no1');
+
+
+  print('Latest Date: $latestDate');
+  print('After1: ${formatDate(after1)}');
+
+  // データを作成し、テーブルへ挿入
+  List<N3> n3Addss = [
+      N3(
+        no: no1,
+        date: formatDate(after1),
+        main1: 10,
+        main2: 10,
+        main3: 10,
+      ),
+  ];
+
+  // Insert the calculated values into the 'n3' table
+  for (final n3 in n3Addss) {
+  await database.insert('n3', n3.toMap(), conflictAlgorithm: ConflictAlgorithm.ignore,);
+  }
+}
+
 Future<int> checkNo(String tableName, Database databaseA, Database database) async {
   final currentNoResult = await databaseA.rawQuery('SELECT MAX(no) AS currentNo FROM $tableName');
   final currentNo = currentNoResult[0]['currentNo'];
@@ -321,8 +517,6 @@ Future<int> checkNo(String tableName, Database databaseA, Database database) asy
   // どちらかが整数に変換できなかった場合は false を返す
   return 0;
 }
-
-
 
 Future<void> fetchDataAndInsertToDatabaseC(date) async {
     
@@ -408,90 +602,106 @@ Future<void> fetchDataAndInsertToDatabaseC(date) async {
 
     }
     
-
     for (final data in bingoData) {
       var adjustedData = adjustData(data.toMap());
       await database.insert('bingo', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
     }
+
     for (final data in loto7Data) {
       var adjustedData = adjustData(data.toMap());
       await database.insert('loto7', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
     }
-    // if (await checkNo('Loto7', database_a, database)){
-    //   Map loto7Adds = await loto7calculateAfterDates('loto7', database);
-    //   List<Loto7> loto7Addss = [
-    //   Loto7(
-    //     no: loto7Adds['no1'],
-    //     date: loto7Adds['after1'],
-    //     main1: '',
-    //     main2: '',
-    //     main3: '',
-    //     main4: '',
-    //     main5: '',
-    //     main6: '',
-    //     main7: '',
-    //     bonus1: '',
-    //     bonus2: '',
-    //   ),
-    //   Loto7(
-    //     no: loto7Adds['no2'],
-    //     date: loto7Adds['after2'],
-    //     main1: '',
-    //     main2: '',
-    //     main3: '',
-    //     main4: '',
-    //     main5: '',
-    //     main6: '',
-    //     main7: '',
-    //     bonus1: '',
-    //     bonus2: '',
-    //   ),
-    //   Loto7(
-    //     no: loto7Adds['no3'],
-    //     date: loto7Adds['after3'],
-    //     main1: '',
-    //     main2: '',
-    //     main3: '',
-    //     main4: '',
-    //     main5: '',
-    //     main6: '',
-    //     main7: '',
-    //     bonus1: '',
-    //     bonus2: '',
-    //   ),
-    //   ];
-    //   // Insert the calculated values into the 'loto7' table
-    //   for (final loto7 in loto7Addss) {
-    //     await database.insert('loto7', loto7.toMap(), conflictAlgorithm: ConflictAlgorithm.ignore,);
-    //   }
-    // }
+    switch (await checkNo('Loto7', databaseA, database)){
+      case 0:
+        
+        break;
+      case 1:
+        for(int i=0; i<1; i++){await loto7calculateAfterDatesAndInsertData('loto7', database);}
+        break;
+      case 2:
+        for(int i=0; i<2; i++){await loto7calculateAfterDatesAndInsertData('loto7', database);}
+        break;
+      case 3:
+        for(int i=0; i<3; i++){await loto7calculateAfterDatesAndInsertData('loto7', database);}
+        break;
+      default:
+        
+        break;
+
+    }
 
     for (final data in minilotoData) {
       var adjustedData = adjustData(data.toMap());
       await database.insert('miniloto', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
     }
+    switch (await checkNo('miniloto', databaseA, database)){
+      case 0:
+        
+        break;
+      case 1:
+        for(int i=0; i<1; i++){await minilotoCalculateAfterDatesAndInsertData('miniloto', database);}
+        break;
+      case 2:
+        for(int i=0; i<2; i++){await minilotoCalculateAfterDatesAndInsertData('miniloto', database);}
+        break;
+      case 3:
+        for(int i=0; i<3; i++){await minilotoCalculateAfterDatesAndInsertData('miniloto', database);}
+        break;
+      default:
+        
+        break;
+
+    }
     for (final data in n3Data) {
       var adjustedData = adjustData(data.toMap());
       await database.insert('n3', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
     }
+    switch (await checkNo('n3', databaseA, database)){
+      case 0:
+        
+        break;
+      case 1:
+        for(int i=0; i<1; i++){await n3CalculateAfterDatesAndInsertData('n3', database);}
+        break;
+      case 2:
+        for(int i=0; i<2; i++){await n3CalculateAfterDatesAndInsertData('n3', database);}
+        break;
+      case 3:
+        for(int i=0; i<3; i++){await n3CalculateAfterDatesAndInsertData('n3', database);}
+        break;
+      default:
+        
+        break;
+
+    }
+
     for (final data in n4Data) {
       var adjustedData = adjustData(data.toMap());
       await database.insert('n4', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
+    }
+    switch (await checkNo('n4', databaseA, database)){
+      case 0:
+        
+        break;
+      case 1:
+        for(int i=0; i<1; i++){await n4CalculateAfterDatesAndInsertData('n4', database);}
+        break;
+      case 2:
+        for(int i=0; i<2; i++){await n4CalculateAfterDatesAndInsertData('n4', database);}
+        break;
+      case 3:
+        for(int i=0; i<3; i++){await n4CalculateAfterDatesAndInsertData('n4', database);}
+        break;
+      default:
+        
+        break;
+
     }
     for (final data in qooData) {
       var adjustedData = adjustData(data.toMap());
       await database.insert('qoo', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
     }
 
-    //　確認
-    // final results = await database.query('loto6');
-    // if (results.isNotEmpty) {
-    //   for (final row in results) {
-    //     print(row); // データベースから取得した行をコンソールに表示
-    //   }
-    // } else {
-    //   print('データベースにはまだデータがありません。');
-    // }
 }
 
 Future<void> setUserDatabase() async{
@@ -507,9 +717,9 @@ Future<void> setUserDatabase() async{
       await db.execute(
         'CREATE TABLE IF NOT EXISTS miniloto(id INTEGER PRIMARY KEY, no INTEGER, date TEXT, main1 TEXT, main2 TEXT, main3 TEXT, main4 TEXT, main5 TEXT)');
       await db.execute(
-        'CREATE TABLE IF NOT EXISTS n3(id INTEGER PRIMARY KEY, no INTEGER, date TEXT, main1 INTEGER, main2 INTEGER, main3 INTEGER)');
+        'CREATE TABLE IF NOT EXISTS n3(id INTEGER PRIMARY KEY, no INTEGER, date TEXT, main1 INTEGER, main2 INTEGER, main3 INTEGER, type INTEGER)');
       await db.execute(
-        'CREATE TABLE IF NOT EXISTS n4(id INTEGER PRIMARY KEY, no INTEGER, date TEXT, main1 INTEGER, main2 INTEGER, main3 INTEGER, main4 INTEGER)');
+        'CREATE TABLE IF NOT EXISTS n4(id INTEGER PRIMARY KEY, no INTEGER, date TEXT, main1 INTEGER, main2 INTEGER, main3 INTEGER, main4 INTEGER, type INTEGER)');
       await db.execute(
         'CREATE TABLE IF NOT EXISTS qoo(id INTEGER PRIMARY KEY, no INTEGER, date TEXT, main1 TEXT, main2 TEXT, main3 TEXT, main4 TEXT)');
     });

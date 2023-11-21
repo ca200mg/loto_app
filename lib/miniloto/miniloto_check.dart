@@ -1,22 +1,22 @@
 // ライブラリのインポート
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:loto_app/loto7/loto7_edit.dart';
-import 'package:loto_app/loto7/loto7_enter.dart';
+import 'package:loto_app/miniloto/miniloto_edit.dart';
+import 'package:loto_app/miniloto/miniloto_enter.dart';
 import 'package:sqflite/sqflite.dart';
 
-// loto7CheckウィジェットのStatefulWidgetクラス
-class Loto7Check extends StatefulWidget {
-  final String loto7Check;
+// MinilotoCheckウィジェットのStatefulWidgetクラス
+class MinilotoCheck extends StatefulWidget {
+  final String minilotoCheck;
 
-  const Loto7Check(this.loto7Check, {Key? key}) : super(key: key);
+  const MinilotoCheck(this.minilotoCheck, {Key? key}) : super(key: key);
 
   @override
-  _Loto7Check createState() => _Loto7Check();
+  _MinilotoCheck createState() => _MinilotoCheck();
 }
 
-// Loto7CheckウィジェットのStateクラス
-class _Loto7Check extends State<Loto7Check> {
+// MinilotoCheckウィジェットのStateクラス
+class _MinilotoCheck extends State<MinilotoCheck> {
   // 変数の初期化
   List<Map<String, dynamic>> _dataList = [];
   List<Map<String, dynamic>> _userDataList = [];
@@ -44,11 +44,11 @@ class _Loto7Check extends State<Loto7Check> {
     }
   }
 
-  // loto7データベースAからデータを取得する非同期関数
+  // minilotoデータベースAからデータを取得する非同期関数
   Future<void> _getDataFromDatabaseA() async {
     Database database = await openDatabase('lotodata.db');
     List<Map<String, dynamic>> data = await database.query(
-      'loto7',
+      'miniloto',
       orderBy: 'date DESC',
     );
     setState(() {
@@ -60,11 +60,11 @@ class _Loto7Check extends State<Loto7Check> {
     });
   }
 
-  // loto7データベースからデータを取得する非同期関数
+  // minilotoデータベースからデータを取得する非同期関数
   Future<void> _getDataFromDatabase() async {
     Database database = await openDatabase('lotodata_c.db');
     List<Map<String, dynamic>> data = await database.query(
-      'loto7',
+      'miniloto',
       orderBy: 'date DESC',
     );
     setState(() {
@@ -76,7 +76,7 @@ class _Loto7Check extends State<Loto7Check> {
   Future<void> _getDataFromUserDatabase() async {
     Database database = await openDatabase('user_database.db');
     List<Map<String, dynamic>> data = await database.query(
-      'loto7',
+      'miniloto',
       orderBy: 'date DESC',
     );
     setState(() {
@@ -118,7 +118,7 @@ class _Loto7Check extends State<Loto7Check> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Loto7Enter(
+                                  builder: (context) => MinilotoEnter(
                                     no: selectedNo,
                                     date: selectedDate,
                                   ),
@@ -154,7 +154,7 @@ class _Loto7Check extends State<Loto7Check> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Loto7Edit(
+                                    builder: (context) => MinilotoEdit(
                                       id: selectedId,
                                     ),
                                   ),
@@ -170,7 +170,7 @@ class _Loto7Check extends State<Loto7Check> {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                for (int j = 1; j <= 7; j++)
+                                for (int j = 1; j <= 5; j++)
                                   Padding(
                                     padding: const EdgeInsets.only(right: 8.0),
                                     child: Text(
@@ -188,7 +188,7 @@ class _Loto7Check extends State<Loto7Check> {
                                   
                                     Text(_countMatchingNumbers(index, 
                                     // _userDataList.where((element) => element['no'] == _dataList[index]['no']).toList(),
-                                    i['main1'],i['main2'],i['main3'],i['main4'],i['main5'],i['main6'],i['main7'],
+                                    i['main1'],i['main2'],i['main3'],i['main4'],i['main5'],
                                     _dataListA)),
                                   // Padding(
                                   //   padding: const EdgeInsets.only(right: 8.0),
@@ -216,22 +216,15 @@ class _Loto7Check extends State<Loto7Check> {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                for (int j = 1; j <= 7; j++)
+                                for (int j = 1; j <= 5; j++)
                                   Padding(
                                     padding: const EdgeInsets.only(right: 8.0),
                                     child: Text(
                                       _dataListA[index]['main$j'].toString().padLeft(2, '0'),
                                     ),
                                   ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: Text(
-                                    _dataListA[index]['bonus1'].toString().padLeft(2, '0'),
-                                    style:const TextStyle(color: Colors.blue)
-                                  ),
-                                ),
                                 Text(
-                                  _dataListA[index]['bonus2'].toString().padLeft(2, '0'),
+                                  _dataListA[index]['bonus'].toString().padLeft(2, '0'),
                                   style:const TextStyle(color: Colors.blue)
                                 ),
                               ],
@@ -252,18 +245,14 @@ class _Loto7Check extends State<Loto7Check> {
   int _checkIfNumberMatches(int index, String selectedNumber, List<Map<String, dynamic>> winningNumber) {
     int count = 0;
     int selected = int.tryParse(selectedNumber) ?? 0;
-    for (int k = 1; k <= 7; k++){
+    for (int k = 1; k <= 5; k++){
       int winning = int.tryParse(winningNumber[index]['main$k']) ?? 0;
       if(selected == winning){
         count = 1;
       }
     }
-    int bonus1 = int.tryParse(winningNumber[index]['bonus1']) ?? 0;
-    if(selected == bonus1){
-      count = 2;
-    }
-    int bonus2 = int.tryParse(winningNumber[index]['bonus2']) ?? 0;
-    if(selected == bonus2){
+    int bonus = int.tryParse(winningNumber[index]['bonus']) ?? 0;
+    if(selected == bonus){
       count = 2;
     }
     return count;
@@ -302,38 +291,30 @@ class _Loto7Check extends State<Loto7Check> {
   String selectedNumber3,
   String selectedNumber4,
   String selectedNumber5,
-  String selectedNumber6,
-  String selectedNumber7,
   List<Map<String, dynamic>> winningNumbers, ) {
     int count = 0;
     String allcount = '';
-    bool bonus1 = false;
-    bool bonus2 = false;
+    bool bonus = false;
     int selected = 0;
     int winning = 0;
-    int bonuss1 = 0;
-    int bonuss2 = 0;
+    int bonuss = 0;
     
-    List<String>selectedNumbers = [selectedNumber1,selectedNumber2,selectedNumber3,selectedNumber4,selectedNumber5,selectedNumber6,selectedNumber7,];
+    List<String>selectedNumbers = [selectedNumber1,selectedNumber2,selectedNumber3,selectedNumber4,selectedNumber5];
 
     for (int l = 0; l < selectedNumbers.length; l++) {
       selected = int.tryParse(selectedNumbers[l]) ?? 0;
-      for (int k = 1; k <= 7; k++){
+      for (int k = 1; k <= 5; k++){
         winning = int.tryParse(winningNumbers[index]['main$k']) ?? 0;
         if(selected == winning){
           count ++;
         }
       }
-      bonuss1 = int.tryParse(winningNumbers[index]['bonus1']) ?? 0;
-      if(selected == bonuss1){
-        bonus1 = true;
-      }
-      bonuss2 = int.tryParse(winningNumbers[index]['bonus2']) ?? 0;
-      if(selected == bonuss2){
-        bonus2 = true;
+      bonuss = int.tryParse(winningNumbers[index]['bonus']) ?? 0;
+      if(selected == bonuss){
+        bonus = true;
       }
     }
-  
+ 
     switch (count){
       case 0:
         allcount = '';
@@ -345,27 +326,17 @@ class _Loto7Check extends State<Loto7Check> {
         allcount = '';
         break;
       case 3:
-        if(bonus1 || bonus2){
-          allcount = '6等';
-        }else{
-          allcount = '';
-        }
+        allcount = '4等';
         break;
       case 4:
-        allcount = '5等';
-        break;
-      case 5:
-        allcount = '4等';     
-        break;
-      case 6:
-        if(bonus1 || bonus2){
+        if(bonus){
           allcount = '2等';
         }else{
           allcount = '3等';
-        }
+        } 
         break;
-      case 7:
-        allcount = '1等';
+      case 5:
+        allcount = '1等';      
         break;
       default:
         allcount = '';

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loto_app/loto7/loto7_check.dart';
+import 'package:loto_app/miniloto/miniloto_flame.dart';
+import 'package:loto_app/n3/n3_flame.dart';
+import 'package:loto_app/n4/n4_flame.dart';
 
 import '../loto6/loto6_flame.dart';
 import '../setting.dart';
@@ -58,6 +61,39 @@ class _Loto7FlameState extends State<Loto7Flame> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const Loto7Flame()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Miniloto'),
+              
+              onTap: () {
+                Navigator.pop(context); // ドロワーを閉じる
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MinilotoFlame()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('N4'),
+              
+              onTap: () {
+                Navigator.pop(context); // ドロワーを閉じる
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const N4Flame()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('N3'),
+              
+              onTap: () {
+                Navigator.pop(context); // ドロワーを閉じる
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const N3Flame()),
                 );
               },
             ),

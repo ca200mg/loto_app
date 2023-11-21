@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:loto_app/loto6/loto6_check.dart';
+import 'package:loto_app/loto6/loto6_flame.dart';
+import 'package:loto_app/loto7/loto7_flame.dart';
 import 'package:loto_app/miniloto/miniloto_flame.dart';
 import 'package:loto_app/n3/n3_flame.dart';
-import 'package:loto_app/n4/n4_flame.dart';
+import 'package:loto_app/n4/n4_check.dart';
+import 'package:loto_app/n4/n4_data_display.dart';
+import 'package:loto_app/n4/n4_statistics.dart';
 
-import '../loto7/loto7_flame.dart';
-import 'loto6_data_display.dart';
-import 'loto6_statistics.dart';
+
 import '../setting.dart';
 
-class Loto6Flame extends StatefulWidget {
-  const Loto6Flame({Key? key}) : super(key: key);
+class N4Flame extends StatefulWidget {
+  const N4Flame({Key? key}) : super(key: key);
 
   @override
-  State<Loto6Flame> createState() => _Loto6FlameState();
+  State<N4Flame> createState() => _N4FlameState();
 }
 
-class _Loto6FlameState extends State<Loto6Flame> {
+class _N4FlameState extends State<N4Flame> {
 
   int _currentIndex = 0;
   final _pages = [
-    const Loto6DataDisplay('Home'),
-    const Loto6Check('loto6Check'),
-    const Loto6Statistics('Statistics'),
+    const N4DataDisplay('Home'),
+    const N4Check('n4Check'),
+    const N4Statistics('Statistics'),
     const Setting('Setting'),
   ];
 
@@ -30,7 +31,7 @@ class _Loto6FlameState extends State<Loto6Flame> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Loto6'),
+        title: const Text('N4'),
       ),
       drawer: Drawer(
         child: ListView(
