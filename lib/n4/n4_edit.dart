@@ -14,7 +14,7 @@ class _N4EditState extends State<N4Edit> {
   List<String> n4Nums = ['0','0','0','0','0','0','0'];
   List<int> numberList = [0,0,0,0];
   int _selectedIndex = 0;
-  final List<String> _options = ['ストレート', 'ボックス', 'セット', 'ミニ'];
+  final List<String> _options = ['ストレート', 'ボックス', 'セット'];
 
   @override
   void initState() {
@@ -404,8 +404,8 @@ Widget build(BuildContext context) {
               print(_selectedIndex);
             });
           },
-          selectedColor: Colors.blue,
-          backgroundColor: Colors.grey.shade300,
+          selectedColor: Colors.green,
+          backgroundColor: Colors.black12,
           labelStyle: TextStyle(
             color: _selectedIndex == index ? Colors.white : Colors.black,
             fontWeight: FontWeight.bold,

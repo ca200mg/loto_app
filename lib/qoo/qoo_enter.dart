@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class N4Enter extends StatefulWidget {
+class QooEnter extends StatefulWidget {
   final int no;
   final String date;
-  const N4Enter({Key? key, required this.no, required this.date}) : super(key: key);
+  const QooEnter({Key? key, required this.no, required this.date}) : super(key: key);
 
   @override
-  State<N4Enter> createState() => _N4EnterState();
+  State<QooEnter> createState() => _QooEnterState();
 }
 
-class _N4EnterState extends State<N4Enter> {
+class _QooEnterState extends State<QooEnter> {
   List<int> numberList = [0,0,0,0];
+  final List<String> _text = ['apple', 'orange', 'melon', 'grape', 'peach'];
   int _selectedIndex = 0;
-  final List<String> _options = ['ストレート', 'ボックス', 'セット'];
   
   void toggleNumber(int number) {
     setState(() {
@@ -48,9 +48,9 @@ Widget build(BuildContext context) {
               children: [
                 
                 SizedBox(
-                  height: 80,
+                  height: 90,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(),
                     child: Wrap(
                       spacing: 4.0,
                       runSpacing: 4.0,
@@ -63,15 +63,15 @@ Widget build(BuildContext context) {
                                 //toggleNumber(num);
                               },
                               child: Container(
-                                width: 40,
-                                height: 40,
+                                width: 80,
+                                height: 80,
                                 decoration: BoxDecoration(
                                   color: Colors.green,
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 alignment: Alignment.center,
                                 child: Text(
-                                  numberList[0].toString(),
+                                  _text[numberList[0]],
                                   style: const TextStyle(fontSize: 14, color: Colors.black),
                                 ),
                               ),
@@ -83,7 +83,7 @@ Widget build(BuildContext context) {
                 ),
                 SizedBox(
                   height: 400,
-                  width: 30,
+                  width: 60,
                   child:
                 GridView.builder(
                   shrinkWrap: true,
@@ -92,7 +92,7 @@ Widget build(BuildContext context) {
                     crossAxisSpacing: 4.0,
                     mainAxisSpacing: 4.0,
                   ),
-                  itemCount: 10,
+                  itemCount: 5,
                   itemBuilder: (BuildContext context, int index1) {
                     int number1 = index1;
                     return GestureDetector(
@@ -102,7 +102,7 @@ Widget build(BuildContext context) {
                         });
                       },
                       child: Container(
-                        width: 20,
+                        width: 40,
                         height: 20,
                         decoration: BoxDecoration(
                           color: numberList[0] == number1 ? Colors.green : Colors.black12,
@@ -110,7 +110,7 @@ Widget build(BuildContext context) {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          number1.toString(),
+                          _text[index1],
                           style: const TextStyle(fontSize: 15),
                         ),
                       ),
@@ -127,9 +127,9 @@ Widget build(BuildContext context) {
               children: [
                 
                 SizedBox(
-                  height: 80,
+                  height: 90,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(),
                     child: Wrap(
                       spacing: 4.0,
                       runSpacing: 4.0,
@@ -142,15 +142,15 @@ Widget build(BuildContext context) {
                                 //toggleNumber(num);
                               },
                               child: Container(
-                                width: 40,
-                                height: 40,
+                                width: 80,
+                                height: 80,
                                 decoration: BoxDecoration(
                                   color: Colors.green,
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 alignment: Alignment.center,
                                 child: Text(
-                                  numberList[1].toString(),
+                                  _text[numberList[1]],
                                   style: const TextStyle(fontSize: 14, color: Colors.black),
                                 ),
                               ),
@@ -162,7 +162,7 @@ Widget build(BuildContext context) {
                 ),
                 SizedBox(
                   height: 400,
-                  width: 30,
+                  width: 60,
                   child:
                 GridView.builder(
                   shrinkWrap: true,
@@ -171,7 +171,7 @@ Widget build(BuildContext context) {
                     crossAxisSpacing: 4.0,
                     mainAxisSpacing: 4.0,
                   ),
-                  itemCount: 10,
+                  itemCount: 5,
                   itemBuilder: (BuildContext context, int index2) {
                     int number2 = index2;
                     return GestureDetector(
@@ -181,7 +181,7 @@ Widget build(BuildContext context) {
                         });
                       },
                       child: Container(
-                        width: 20,
+                        width: 40,
                         height: 20,
                         decoration: BoxDecoration(
                           color: numberList[1] == number2 ? Colors.green : Colors.black12,
@@ -189,7 +189,7 @@ Widget build(BuildContext context) {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          number2.toString(),
+                          _text[index2],
                           style: const TextStyle(fontSize: 15),
                         ),
                       ),
@@ -206,9 +206,9 @@ Widget build(BuildContext context) {
               children: [
                 
                 SizedBox(
-                  height: 80,
+                  height: 90,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(),
                     child: Wrap(
                       spacing: 4.0,
                       runSpacing: 4.0,
@@ -221,15 +221,15 @@ Widget build(BuildContext context) {
                                 //toggleNumber(num);
                               },
                               child: Container(
-                                width: 40,
-                                height: 40,
+                                width: 80,
+                                height: 80,
                                 decoration: BoxDecoration(
                                   color: Colors.green,
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 alignment: Alignment.center,
                                 child: Text(
-                                  numberList[2].toString(),
+                                  _text[numberList[2]],
                                   style: const TextStyle(fontSize: 14, color: Colors.black),
                                 ),
                               ),
@@ -241,7 +241,7 @@ Widget build(BuildContext context) {
                 ),
                 SizedBox(
                   height: 400,
-                  width: 30,
+                  width: 60,
                   child:
                 GridView.builder(
                   shrinkWrap: true,
@@ -250,7 +250,7 @@ Widget build(BuildContext context) {
                     crossAxisSpacing: 4.0,
                     mainAxisSpacing: 4.0,
                   ),
-                  itemCount: 10,
+                  itemCount: 5,
                   itemBuilder: (BuildContext context, int index3) {
                     int number3 = index3;
                     return GestureDetector(
@@ -260,7 +260,7 @@ Widget build(BuildContext context) {
                         });
                       },
                       child: Container(
-                        width: 20,
+                        width: 40,
                         height: 20,
                         decoration: BoxDecoration(
                           color: numberList[2] == number3 ? Colors.green : Colors.black12,
@@ -268,7 +268,7 @@ Widget build(BuildContext context) {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          number3.toString(),
+                          _text[index3],
                           style: const TextStyle(fontSize: 15),
                         ),
                       ),
@@ -285,9 +285,9 @@ Widget build(BuildContext context) {
               children: [
                 
                 SizedBox(
-                  height: 80,
+                  height: 90,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(),
                     child: Wrap(
                       spacing: 4.0,
                       runSpacing: 4.0,
@@ -300,15 +300,15 @@ Widget build(BuildContext context) {
                                 //toggleNumber(num);
                               },
                               child: Container(
-                                width: 40,
-                                height: 40,
+                                width: 80,
+                                height: 80,
                                 decoration: BoxDecoration(
                                   color: Colors.green,
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 alignment: Alignment.center,
                                 child: Text(
-                                  numberList[3].toString(),
+                                  _text[numberList[3]],
                                   style: const TextStyle(fontSize: 14, color: Colors.black),
                                 ),
                               ),
@@ -320,7 +320,7 @@ Widget build(BuildContext context) {
                 ),
                 SizedBox(
                   height: 400,
-                  width: 30,
+                  width: 60,
                   child:
                 GridView.builder(
                   shrinkWrap: true,
@@ -329,7 +329,7 @@ Widget build(BuildContext context) {
                     crossAxisSpacing: 4.0,
                     mainAxisSpacing: 4.0,
                   ),
-                  itemCount: 10,
+                  itemCount: 5,
                   itemBuilder: (BuildContext context, int index4) {
                     int number4 = index4;
                     return GestureDetector(
@@ -339,7 +339,7 @@ Widget build(BuildContext context) {
                         });
                       },
                       child: Container(
-                        width: 20,
+                        width: 40,
                         height: 20,
                         decoration: BoxDecoration(
                           color: numberList[3] == number4 ? Colors.green : Colors.black12,
@@ -347,7 +347,7 @@ Widget build(BuildContext context) {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          number4.toString(),
+                          _text[index4],
                           style: const TextStyle(fontSize: 15),
                         ),
                       ),
@@ -359,51 +359,7 @@ Widget build(BuildContext context) {
 
               ],
             ),
-            Wrap(
-  direction: Axis.vertical, // 縦方向に並べる
-  spacing: 8.0,
-  children: List<Widget>.generate(
-    _options.length,
-    (int index) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0), // ボタンの間に余白を追加
-        child: ChoiceChip(
-          label: SizedBox( // テキストの余白を調整するためにSizedBoxを使用
-            height: 24, // ボタンの高さ
-            child: Center(
-              child: Text(_options[index],
-              style: const TextStyle(
-                  fontSize: 12, // フォントサイズを調整
-                ),
-              ),
-            ),
-          ),
-          selected: _selectedIndex == index,
-          onSelected: (bool selected) {
-            setState(() {
-              if (selected) {
-                _selectedIndex = index;
-              } else {
-                // 選択を解除することはできないようにします
-                if (_selectedIndex != index) {
-                  _selectedIndex = index;
-                }
-              }
-              print(_selectedIndex);
-            });
-          },
-          selectedColor: Colors.blue,
-          backgroundColor: Colors.grey.shade300,
-          labelStyle: TextStyle(
-            color: _selectedIndex == index ? Colors.white : Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      );
-    },
-  ).toList(),
-)
-
+            
           ],
         ),
         
@@ -412,7 +368,7 @@ Widget build(BuildContext context) {
                 // 選択した数字をLoto6Checkに渡すなどの処理を行う
                 List<int> preNumSetList1 = numberList;
                 //List<String> preNumSetList2 = preNumSetList1.map((num) => num.toString()).toList();
-                await setNewN4Nums(widget.no, widget.date, preNumSetList1,_selectedIndex);
+                await setNewQooNums(widget.no, widget.date, preNumSetList1,_selectedIndex, _text);
                 Navigator.pop(context, true);
                 print('pressed');
               } : null, // numberListの要素数が6でない場合、ボタンを無効にする
@@ -426,20 +382,19 @@ Widget build(BuildContext context) {
 //numberList
 }
 
-Future setNewN4Nums(int no, String date, List<int> numSetList, int selectedIndex)async{
+Future setNewQooNums(int no, String date, List<int> numSetList, int selectedIndex, List<String> _text)async{
   
   String path = join(await getDatabasesPath(), 'user_database.db');
   Database database = await openDatabase(path);
   await database.insert(
-    'n4',
+    'qoo',
     {
       'no': no,
         'date': date,
-        'main1': numSetList[0],
-        'main2': numSetList[1],
-        'main3': numSetList[2],
-        'main4': numSetList[3],
-        'type': selectedIndex,
+        'main1': _text[numSetList[0]],
+        'main2': _text[numSetList[1]],
+        'main3': _text[numSetList[2]],
+        'main4': _text[numSetList[3]],
     }, conflictAlgorithm: ConflictAlgorithm.ignore,);
 
     await database.close();

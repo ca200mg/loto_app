@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:loto_app/loto6/loto6_flame.dart';
-import 'package:loto_app/loto7/loto7_flame.dart';
 import 'package:loto_app/miniloto/miniloto_flame.dart';
 import 'package:loto_app/n3/n3_flame.dart';
-import 'package:loto_app/n4/n4_check.dart';
-import 'package:loto_app/n4/n4_data_display.dart';
-import 'package:loto_app/n4/n4_statistics.dart';
-import 'package:loto_app/qoo/qoo_flame.dart';
+import 'package:loto_app/n4/n4_flame.dart';
+import 'package:loto_app/qoo/qoo_check.dart';
+import 'package:loto_app/qoo/qoo_data_display.dart';
+import 'package:loto_app/qoo/qoo_statistics.dart';
 
-
+import '../loto7/loto7_flame.dart';
 import '../setting.dart';
 
-class N4Flame extends StatefulWidget {
-  const N4Flame({Key? key}) : super(key: key);
+class QooFlame extends StatefulWidget {
+  const QooFlame({Key? key}) : super(key: key);
 
   @override
-  State<N4Flame> createState() => _N4FlameState();
+  State<QooFlame> createState() => _QooFlameState();
 }
 
-class _N4FlameState extends State<N4Flame> {
+class _QooFlameState extends State<QooFlame> {
 
   int _currentIndex = 0;
   final _pages = [
-    const N4DataDisplay('Home'),
-    const N4Check('n4Check'),
-    const N4Statistics('Statistics'),
+    const QooDataDisplay('Home'),
+    const QooCheck('qooCheck'),
+    const QooStatistics('Statistics'),
     const Setting('Setting'),
   ];
 
@@ -32,7 +31,7 @@ class _N4FlameState extends State<N4Flame> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('N4'),
+        title: const Text('Qoo'),
       ),
       drawer: Drawer(
         child: ListView(

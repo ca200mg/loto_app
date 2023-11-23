@@ -3,6 +3,7 @@ import 'package:loto_app/loto6/loto6_check.dart';
 import 'package:loto_app/miniloto/miniloto_flame.dart';
 import 'package:loto_app/n3/n3_flame.dart';
 import 'package:loto_app/n4/n4_flame.dart';
+import 'package:loto_app/qoo/qoo_flame.dart';
 
 import '../loto7/loto7_flame.dart';
 import 'loto6_data_display.dart';
@@ -94,6 +95,17 @@ class _Loto6FlameState extends State<Loto6Flame> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const N3Flame()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Qoo'),
+              
+              onTap: () {
+                Navigator.pop(context); // ドロワーを閉じる
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const QooFlame()),
                 );
               },
             ),

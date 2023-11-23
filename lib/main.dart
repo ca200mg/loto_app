@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:loto_app/database.dart';
+import 'package:loto_app/loto6/loto6_flame.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'database.dart';
-import 'loto6/loto6_flame.dart';
+
+
 
 void main() {
   runApp(const MyApp());

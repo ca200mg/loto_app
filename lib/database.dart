@@ -483,6 +483,78 @@ Future<void> n3CalculateAfterDatesAndInsertData(String tableName, Database datab
   }
 }
 
+Future<void> qooCalculateAfterDatesAndInsertData(String tableName, Database database) async {
+  DateTime latestDate;
+  DateTime after1;
+  int latestNo;
+  int no1;
+
+  // 飛ばす日付の条件（12-31から01-03）
+  bool shouldSkipDate(DateTime date) {
+    return date.month == 12 && date.day >= 31 || date.month == 1 && date.day <= 3;
+  }
+
+  // 次の月曜日または木曜日を取得する関数
+  DateTime getNextMondayOrThursday(DateTime date) {
+    while (date.weekday != DateTime.monday 
+            && date.weekday != DateTime.tuesday
+            && date.weekday != DateTime.wednesday
+            && date.weekday != DateTime.thursday
+            && date.weekday != DateTime.friday) {
+      date = date.add(const Duration(days: 1));
+    }
+    return date;
+  }
+
+  // 1. 最新の日付を取得
+  final latestDateResult = await database.rawQuery('SELECT MAX(date) AS latestDate FROM $tableName');
+  final latestDateStr = latestDateResult[0]['latestDate'] as String;
+  latestDate = DateTime.parse(latestDateStr);
+
+  // 2. after1の計算
+  after1 = getNextMondayOrThursday(latestDate.add(const Duration(days: 1)));
+  if (shouldSkipDate(after1)) {
+    while(shouldSkipDate(after1)){
+    after1 = getNextMondayOrThursday(after1.add(const Duration(days: 1)));
+    }
+  }
+  // 最新のnoを取得
+  final latestNoResult = await database.rawQuery('SELECT MAX(no) AS latestNo FROM $tableName');
+  final latestNoInt = latestNoResult[0]['latestNo'] as int;
+  latestNo = latestNoInt;
+  // no1の計算
+  no1 = latestNo + 1;
+
+  // Format DateTime objects to strings
+  String formatDate(DateTime date) {
+    return DateFormat('yyyy-MM-dd').format(date);
+  }
+
+  print(latestNo);
+  print('no1: $no1');
+
+
+  print('Latest Date: $latestDate');
+  print('After1: ${formatDate(after1)}');
+
+  // データを作成し、テーブルへ挿入
+  List<Qoo> qooAddss = [
+      Qoo(
+        no: no1,
+        date: formatDate(after1),
+        main1: '',
+        main2: '',
+        main3: '',
+        main4: '',
+      ),
+  ];
+
+  // Insert the calculated values into the 'n3' table
+  for (final qoo in qooAddss) {
+  await database.insert('qoo', qoo.toMap(), conflictAlgorithm: ConflictAlgorithm.ignore,);
+  }
+}
+
 Future<int> checkNo(String tableName, Database databaseA, Database database) async {
   final currentNoResult = await databaseA.rawQuery('SELECT MAX(no) AS currentNo FROM $tableName');
   final currentNo = currentNoResult[0]['currentNo'];
@@ -701,10 +773,29 @@ Future<void> fetchDataAndInsertToDatabaseC(date) async {
       var adjustedData = adjustData(data.toMap());
       await database.insert('qoo', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
     }
+    switch (await checkNo('qoo', databaseA, database)){
+      case 0:
+        
+        break;
+      case 1:
+        for(int i=0; i<1; i++){await qooCalculateAfterDatesAndInsertData('qoo', database);}
+        break;
+      case 2:
+        for(int i=0; i<2; i++){await qooCalculateAfterDatesAndInsertData('qoo', database);}
+        break;
+      case 3:
+        for(int i=0; i<3; i++){await qooCalculateAfterDatesAndInsertData('qoo', database);}
+        break;
+      default:
+        
+        break;
+
+    }
 
 }
 
 Future<void> setUserDatabase() async{
+  print('setUserDatabase!');
   final database = await openDatabase('user_database.db', version: 1,
         onCreate: (Database db, int version) async {
       // テーブルの作成

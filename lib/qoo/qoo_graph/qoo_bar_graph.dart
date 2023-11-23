@@ -1,28 +1,23 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:loto_app/n3/n3_graph/n3_bar_data.dart';
+import 'package:loto_app/qoo/qoo_graph/qoo_bar_data.dart';
 
-class N3BarGraph extends StatelessWidget {
+class QooBarGraph extends StatelessWidget {
   final List countValue;
   final List countKey;
-  const N3BarGraph({super.key, required this.countKey, required this.countValue});
+  const QooBarGraph({super.key, required this.countKey, required this.countValue});
 
   @override
   Widget build(BuildContext context) {
     // initialize bar data
-    N3BarData myN3barData = N3BarData(
+    QooBarData myQoobarData = QooBarData(
       key_01:countKey[0],  value_01: countValue[0], 
       key_02:countKey[1],  value_02: countValue[1], 
       key_03:countKey[2],  value_03: countValue[2], 
       key_04:countKey[3],  value_04: countValue[3], 
-      key_05:countKey[3],  value_05: countValue[3], 
-      key_06:countKey[3],  value_06: countValue[3], 
-      key_07:countKey[3],  value_07: countValue[3], 
-      key_08:countKey[3],  value_08: countValue[3], 
-      key_09:countKey[3],  value_09: countValue[3], 
-      key_10:countKey[3],  value_10: countValue[3], 
+      key_05:countKey[4],  value_05: countValue[4], 
       );
-      myN3barData.initializeN3BarData();
+      myQoobarData.initializeQooBarData();
       return
     // Transform.rotate(
     //   angle: 1.5708, // 90度のラジアン
@@ -40,10 +35,10 @@ class N3BarGraph extends StatelessWidget {
               leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: true, getTitlesWidget: getLeftTitles)),
               bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: true, getTitlesWidget: getBottomTitles)),
             ),
-            barGroups: myN3barData.n3BarData
+            barGroups: myQoobarData.qooBarData
             .map(
               (data) => BarChartGroupData(
-              x: int.parse(data.x),
+              x: fluitsToNumber(data.x),
               barRods: [
                 BarChartRodData(
                   toY: data.y,
@@ -93,48 +88,6 @@ Widget getLeftTitles(double value, TitleMeta meta) {
     case 400:
       text = const Text('400', style: style);
       break;
-    case 450:
-      text = const Text('450', style: style);
-      break;
-    case 500:
-      text = const Text('500', style: style);
-      break;
-    case 550:
-      text = const Text('550', style: style);
-      break;
-    case 600:
-      text = const Text('600', style: style);
-      break;
-    case 650:
-      text = const Text('650', style: style);
-      break;
-    case 700:
-      text = const Text('700', style: style);
-      break;
-    case 750:
-      text = const Text('750', style: style);
-      break;
-    case 800:
-      text = const Text('800', style: style);
-      break;
-    case 850:
-      text = const Text('850', style: style);
-      break;
-    case 1000:
-      text = const Text('1000', style: style);
-      break;
-    case 1500:
-      text = const Text('1500', style: style);
-      break;
-    case 2000:
-      text = const Text('2000', style: style);
-      break;
-    case 2500:
-      text = const Text('2500', style: style);
-      break;
-    case 3000:
-      text = const Text('3000', style: style);
-      break;
     default:
       text = const Text('', style: style);
       break;
@@ -150,35 +103,20 @@ Widget getBottomTitles(double value, TitleMeta meta) {
 
   Widget text;
   switch (value.toInt()) {
-    case 0:
-      text = const Text('0', style: style);
-      break;
     case 1:
-      text = const Text('1', style: style);
+      text = const Text('apple', style: style);
       break;
     case 2:
-      text = const Text('2', style: style);
+      text = const Text('orange', style: style);
       break;
     case 3:
-      text = const Text('3', style: style);
+      text = const Text('melon', style: style);
       break;
     case 4:
-      text = const Text('4', style: style);
+      text = const Text('grape', style: style);
       break;
     case 5:
-      text = const Text('5', style: style);
-      break;
-    case 6:
-      text = const Text('6', style: style);
-      break;
-    case 7:
-      text = const Text('7', style: style);
-      break;
-    case 8:
-      text = const Text('8', style: style);
-      break;
-    case 9:
-      text = const Text('9', style: style);
+      text = const Text('peach', style: style);
       break;
     default:
       text = const Text('', style: style);
@@ -205,4 +143,29 @@ double findMaxValue(List<dynamic> countValue) {
   double nearestMultiple = quotient * 50; // 求めた位置の50の倍数を計算
 
   return nearestMultiple;
+}
+
+int fluitsToNumber(String fluits){
+  int number;
+  switch(fluits){
+    case 'apple':
+      number = 1;
+      break;
+    case 'orange':
+      number = 2;
+      break;
+    case 'melon':
+      number = 3;
+      break;
+    case 'grape':
+      number = 4;
+      break;
+    case 'peach':
+      number = 5;
+      break;
+    default:
+     number = 0;
+     break;
+  }
+  return number;
 }
