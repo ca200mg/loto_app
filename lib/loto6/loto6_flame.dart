@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loto_app/bingo/bingo_flame.dart';
 import 'package:loto_app/loto6/loto6_check.dart';
 import 'package:loto_app/miniloto/miniloto_flame.dart';
 import 'package:loto_app/n3/n3_flame.dart';
@@ -109,9 +110,16 @@ class _Loto6FlameState extends State<Loto6Flame> {
                 );
               },
             ),
-            const ListTile(
-              title: Text("Item 2"),
-              trailing: Icon(Icons.arrow_forward),
+            ListTile(
+              title: const Text('Bingo'),
+              
+              onTap: () {
+                Navigator.pop(context); // ドロワーを閉じる
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BingoFlame()),
+                );
+              },
             ),
           ],
         ),

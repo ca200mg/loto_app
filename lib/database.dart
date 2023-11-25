@@ -555,6 +555,79 @@ Future<void> qooCalculateAfterDatesAndInsertData(String tableName, Database data
   }
 }
 
+Future<void> bingoCalculateAfterDatesAndInsertData(String tableName, Database database) async {
+  DateTime latestDate;
+  DateTime after1;
+  int latestNo;
+  int no1;
+
+  // 飛ばす日付の条件（12-31から01-03）
+  bool shouldSkipDate(DateTime date) {
+    return date.month == 12 && date.day >= 31 || date.month == 1 && date.day <= 3;
+  }
+
+  //次の火曜日を取得する関数
+  DateTime getNextWednesday(DateTime date) {
+  while (date.weekday != DateTime.wednesday) {
+    date = date.add(const Duration(days: 1));
+  }
+  return date;
+  }
+
+  // 1. 最新の日付を取得
+  final latestDateResult = await database.rawQuery('SELECT MAX(date) AS latestDate FROM $tableName');
+  final latestDateStr = latestDateResult[0]['latestDate'] as String;
+  latestDate = DateTime.parse(latestDateStr);
+
+  // 2. after1の計算
+  after1 = getNextWednesday(latestDate.add(const Duration(days: 1)));
+  if (shouldSkipDate(after1)) {
+    while(shouldSkipDate(after1)){
+    after1 = getNextWednesday(after1.add(const Duration(days: 1)));
+    }
+  }
+
+  // 最新のnoを取得
+  final latestNoResult = await database.rawQuery('SELECT MAX(no) AS latestNo FROM $tableName');
+  final latestNoInt = latestNoResult[0]['latestNo'] as int;
+  latestNo = latestNoInt;
+  // no1の計算
+  no1 = latestNo + 1;
+
+  // Format DateTime objects to strings
+  String formatDate(DateTime date) {
+    return DateFormat('yyyy-MM-dd').format(date);
+  }
+
+  print(latestNo);
+  print('no1: $no1');
+
+
+  print('Latest Date: $latestDate');
+  print('After1: ${formatDate(after1)}');
+
+  // データを作成し、テーブルへ挿入
+  List<Bingo> bingoAddss = [
+      Bingo(
+        no: no1,
+        date: formatDate(after1),
+        main1: '',
+        main2: '',
+        main3: '',
+        main4: '',
+        main5: '',
+        main6: '',
+        main7: '',
+        main8: '',
+      ),
+  ];
+
+  // Insert the calculated values into the 'loto6' table
+  for (final bingo in bingoAddss) {
+  await database.insert('bingo', bingo.toMap(), conflictAlgorithm: ConflictAlgorithm.ignore,);
+  }
+}
+
 Future<int> checkNo(String tableName, Database databaseA, Database database) async {
   final currentNoResult = await databaseA.rawQuery('SELECT MAX(no) AS currentNo FROM $tableName');
   final currentNo = currentNoResult[0]['currentNo'];
@@ -655,7 +728,7 @@ Future<void> fetchDataAndInsertToDatabaseC(date) async {
       var adjustedData = adjustData(data.toMap());
       await database.insert('loto6', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
     }
-    switch (await checkNo('Loto6', databaseA, database)){
+    switch (await checkNo('loto6', databaseA, database)){
       case 0:
         
         break;
@@ -677,6 +750,24 @@ Future<void> fetchDataAndInsertToDatabaseC(date) async {
     for (final data in bingoData) {
       var adjustedData = adjustData(data.toMap());
       await database.insert('bingo', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
+    }
+    switch (await checkNo('bingo', databaseA, database)){
+      case 0:
+        
+        break;
+      case 1:
+        for(int i=0; i<1; i++){await bingoCalculateAfterDatesAndInsertData('bingo', database);}
+        break;
+      case 2:
+        for(int i=0; i<2; i++){await bingoCalculateAfterDatesAndInsertData('bingo', database);}
+        break;
+      case 3:
+        for(int i=0; i<3; i++){await bingoCalculateAfterDatesAndInsertData('bingo', database);}
+        break;
+      default:
+        
+        break;
+
     }
 
     for (final data in loto7Data) {

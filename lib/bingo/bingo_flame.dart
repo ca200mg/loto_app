@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:loto_app/bingo/bingo_flame.dart';
+import 'package:loto_app/bingo/bingo_check.dart';
+import 'package:loto_app/bingo/bingo_data_display.dart';
+import 'package:loto_app/bingo/bingo_statistics.dart';
 import 'package:loto_app/loto6/loto6_flame.dart';
-import 'package:loto_app/miniloto/miniloto_check.dart';
-import 'package:loto_app/miniloto/miniloto_data_display.dart';
-import 'package:loto_app/miniloto/miniloto_statistics.dart';
+import 'package:loto_app/loto7/loto7_flame.dart';
+import 'package:loto_app/miniloto/miniloto_flame.dart';
 import 'package:loto_app/n3/n3_flame.dart';
 import 'package:loto_app/n4/n4_flame.dart';
 import 'package:loto_app/qoo/qoo_flame.dart';
+import 'package:loto_app/setting.dart';
 
-import '../loto7/loto7_flame.dart';
-import '../setting.dart';
-
-class MinilotoFlame extends StatefulWidget {
-  const MinilotoFlame({Key? key}) : super(key: key);
+class BingoFlame extends StatefulWidget {
+  const BingoFlame({Key? key}) : super(key: key);
 
   @override
-  State<MinilotoFlame> createState() => _MinilotoFlameState();
+  State<BingoFlame> createState() => _BingoFlameState();
 }
 
-class _MinilotoFlameState extends State<MinilotoFlame> {
+class _BingoFlameState extends State<BingoFlame> {
 
   int _currentIndex = 0;
   final _pages = [
-    const MinilotoDataDisplay('Home'),
-    const MinilotoCheck('minilotoCheck'),
-    const MinilotoStatistics('Statistics'),
+    const BingoDataDisplay('Home'),
+    const BingoCheck('BingoCheck'),
+    const BingoStatistics('Statistics'),
     const Setting('Setting'),
   ];
 
@@ -32,7 +31,7 @@ class _MinilotoFlameState extends State<MinilotoFlame> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Miniloto'),
+        title: const Text('Bingo'),
       ),
       drawer: Drawer(
         child: ListView(
