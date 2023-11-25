@@ -176,7 +176,7 @@ class _QooCheck extends State<QooCheck> {
                                     child: Text(
                                       i['main$j'].padLeft(2, '0') as String,
                                       style: TextStyle(
-                                        color: _checkIfNumberMatchesColor(_checkIfNumberMatches(index, i['main$j'],_dataListA))
+                                        color: _checkIfNumberMatchesColor(_checkIfNumberMatches(j, index, i['main$j'],_dataListA))
                                             //     index,
                                             //     i['main$j'], 
                                             //       _dataListA)
@@ -238,15 +238,13 @@ class _QooCheck extends State<QooCheck> {
   }
 
   // 数字の種類を確認する関数
-  int _checkIfNumberMatches(int index, String selectedNumber, List<Map<String, dynamic>> winningNumber) {
+  int _checkIfNumberMatches(int forIndex, int index, String selectedNumber, List<Map<String, dynamic>> winningNumber) {
     int count = 0;
     String selected = selectedNumber;
-    for (int k = 1; k <= 4; k++){
-      String winning = winningNumber[index]['main$k'];
+      String winning = winningNumber[index]['main$forIndex'];
       if(selected == winning){
         count = 1;
       }
-    }
     return count;
   }
 

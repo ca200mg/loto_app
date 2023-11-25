@@ -170,17 +170,27 @@ class _N3Check extends State<N3Check> {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                for (int j = 1; j <= 3; j++)
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: Text(
-                                      i['main$j'].toString(),
-                                      style: TextStyle(
-                                        color: _checkIfNumberMatchesColor(_checkIfNumberMatches(index, i['main$j'],_dataListA))
+                                Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        for (int j = 1; j <= 3; j++)
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 8.0),
+                                        child: Text(
+                                          i['main$j'].toString(),
+                                          style: TextStyle(
+                                            color: _checkIfNumberMatchesColor(_checkIfNumberMatches(j, index, i['main$j'],_dataListA))
+                                          ),
+                                        ),
                                       ),
+                                      ],
                                     ),
-                                  ),
                                     Text(_returnType(i['type'])),
+                                  ],
+                                ),
+                                
+                                    
                                     Text(_countMatchingNumbers(index, 
                                     i['main1'],i['main2'],i['main3'],i['type'],
                                     _dataListA)),
@@ -220,15 +230,14 @@ class _N3Check extends State<N3Check> {
   }
 
   // 数字の種類を確認する関数
-  int _checkIfNumberMatches(int index, int selectedNumber, List<Map<String, dynamic>> winningNumber) {
+  int _checkIfNumberMatches(int forIndex, int index, int selectedNumber, List<Map<String, dynamic>> winningNumber) {
     int count = 0;
     int selected = (selectedNumber) ?? 0;
-    for (int k = 1; k <= 3; k++){
-      int winning = int.tryParse(winningNumber[index]['main$k'].toString()) ?? 0;
-      if(selected == winning){
-        count = 1;
-      }
+    int winning = int.tryParse(winningNumber[index]['main$forIndex'].toString()) ?? 0;
+    if(selected == winning){
+      count = 1;
     }
+    
     
     return count;
   }
@@ -293,9 +302,9 @@ class _N3Check extends State<N3Check> {
         if(selectedNumber1 == winningNumbers[index]['main1'] && 
             selectedNumber2==winningNumbers[index]['main2'] && 
             selectedNumber3==winningNumbers[index]['main3']){
-              allcount = 'ストレート';
+              allcount = 'ストレートあたり';
             }else{
-              allcount = 'sはずれ';
+              allcount = 'はずれ';
             }
         break;
       case 1:
@@ -305,7 +314,7 @@ class _N3Check extends State<N3Check> {
         }
         
         if(selectedNumbersSet.containsAll(winningSet) && winningSet.containsAll(selectedNumbersSet)){
-          allcount = 'ボックス';
+          allcount = 'ボックスあたり';
         }else{
           allcount = 'bはずれ';
         }
@@ -318,16 +327,16 @@ class _N3Check extends State<N3Check> {
         if(selectedNumber1 == winningNumbers[index]['main1'] && 
             selectedNumber2==winningNumbers[index]['main2'] && 
             selectedNumber3==winningNumbers[index]['main3']){
-              allcount = 'セット:ストレート';
+              allcount = 'セット:ストレートあたり';
         }else if(selectedNumbersSet.containsAll(winningSet) && winningSet.containsAll(selectedNumbersSet)){
-              allcount = 'セット:ボックス';
+              allcount = 'セット:ボックスあたり';
         }else{
               allcount = 'セット:はずれ';
         }
       case 3:
         if(selectedNumber2==winningNumbers[index]['main2'] && 
             selectedNumber3==winningNumbers[index]['main3']){
-              allcount = 'ミニ';
+              allcount = 'ミニあたり';
         }else{
               allcount = 'ミニ:はずれ';
         }
