@@ -170,9 +170,13 @@ class _BingoCheck extends State<BingoCheck> {
                             ),
                             SizedBox(
                               width: 180,
-                              child: _returnTable(index, 
+                              child: _returnUserTable(index, 
                                       i['main1'],i['main2'],i['main3'],i['main4'],i['main5'],i['main6'],i['main7'],i['main8'],
                                       _dataListA),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(_countMatchingNumbers(index, i['main1'],i['main2'],i['main3'],i['main4'],i['main5'],i['main6'],i['main7'],i['main8'], _dataListA)),
                             ),
                           ],
                         ),
@@ -265,25 +269,41 @@ class _BingoCheck extends State<BingoCheck> {
   List<Map<String, dynamic>> winningNumbers, ) {
     int count = 0;
     String allcount = '';
-    bool bonus = false;
-    int selected = 0;
-    int winning = 0;
-    int bonuss = 0;
     
     List<String>selectedNumbers = [selectedNumber1,selectedNumber2,selectedNumber3,selectedNumber4,selectedNumber5,selectedNumber6,selectedNumber7,selectedNumber8];
 
-    for (int l = 0; l < selectedNumbers.length; l++) {
-      selected = int.tryParse(selectedNumbers[l]) ?? 0;
-      for (int k = 1; k <= 8; k++){
-        winning = int.tryParse(winningNumbers[index]['main$k']) ?? 0;
-        if(selected == winning){
-          count ++;
-        }
-      }
-      bonuss = int.tryParse(winningNumbers[index]['bonus']) ?? 0;
-      if(selected == bonuss){
-        bonus = true;
-      }
+    bool cell_1 = int.tryParse(selectedNumber1) == int.tryParse(winningNumbers[index]['main1']);
+    bool cell_2 = int.tryParse(selectedNumber2) == int.tryParse(winningNumbers[index]['main2']);
+    bool cell_3 = int.tryParse(selectedNumber3) == int.tryParse(winningNumbers[index]['main3']);
+    bool cell_4 = int.tryParse(selectedNumber4) == int.tryParse(winningNumbers[index]['main4']);
+    bool cell_5 = int.tryParse(selectedNumber5) == int.tryParse(winningNumbers[index]['main5']);
+    bool cell_6 = int.tryParse(selectedNumber6) == int.tryParse(winningNumbers[index]['main6']);
+    bool cell_7 = int.tryParse(selectedNumber7) == int.tryParse(winningNumbers[index]['main7']);
+    bool cell_8 = int.tryParse(selectedNumber8) == int.tryParse(winningNumbers[index]['main8']);
+    
+    if(cell_1 && cell_2 && cell_3){
+      count ++;
+    }
+    if(cell_4 && cell_5){
+      count ++;
+    }
+    if(cell_6 && cell_7 && cell_8){
+      count ++;
+    }
+    if(cell_1 && cell_4 && cell_6){
+      count ++;
+    }
+    if(cell_2 && cell_7){
+      count ++;
+    }
+    if(cell_3 && cell_5 && cell_8){
+      count ++;
+    }
+    if(cell_1 && cell_8){
+      count ++;
+    }
+    if(cell_3 && cell_6){
+      count ++;
     }
  
     switch (count){
@@ -291,10 +311,10 @@ class _BingoCheck extends State<BingoCheck> {
         allcount = '';
         break;
       case 1:
-        allcount = '';
+        allcount = '7等';
         break;
       case 2:
-        allcount = '';
+        allcount = '6等';
         break;
       case 3:
         allcount = '5等';
@@ -303,13 +323,15 @@ class _BingoCheck extends State<BingoCheck> {
         allcount = '4等';
         break;
       case 5:
-        if(bonus){
-          allcount = '2等';
-        }else{
-          allcount = '3等';
-        }       
+        allcount = '3等';
         break;
       case 6:
+        allcount = '2等';
+        break;
+      case 7:
+        allcount = '';
+        break;
+      case 8:
         allcount = '1等';
         break;
       default:
@@ -331,7 +353,7 @@ int _itemCheckWinning(int index, String number, List<Map<String, dynamic>> winni
   return count;
 }
 
-Table _returnTable(int index, 
+Table _returnUserTable(int index, 
   // List<Map<String, dynamic>> selectedNumbers, 
   String selectedNumber1,
   String selectedNumber2,
@@ -347,6 +369,7 @@ Table _returnTable(int index,
   // 表示する列数
   int columns = 3;
   selectedNumbers.insert(4, 'free');
+  selectedNumbers = selectedNumbers.map((i) => i.padLeft(2, '0')).toList();
   // テーブルにデータを追加
     List<TableRow> rows = [];
     for (int i = 0; i < selectedNumbers.length; i += columns) {
