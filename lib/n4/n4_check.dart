@@ -180,7 +180,7 @@ class _N4Check extends State<N4Check> {
                                         child: Text(
                                           i['main$j'].toString(),
                                           style: TextStyle(
-                                            color: _checkIfNumberMatchesColor(_checkIfNumberMatches(j, index, i['main$j'],_dataListA))
+                                            color: _checkIfNumberMatchesColor(_checkIfNumberMatches(j, index, i['main$j'],i['type'],_dataListA))
                                           ),
                                         ),
                                       ),
@@ -230,13 +230,36 @@ class _N4Check extends State<N4Check> {
   }
 
   // 数字の種類を確認する関数
-  int _checkIfNumberMatches(int forIndex, int index, int selectedNumber, List<Map<String, dynamic>> winningNumber) {
+  int _checkIfNumberMatches(int forIndex, int index, int selectedNumber, int type, List<Map<String, dynamic>> winningNumber) {
     int count = 0;
     int selected = (selectedNumber) ?? 0;
-    int winning = int.tryParse(winningNumber[index]['main$forIndex'].toString()) ?? 0;
-    if(selected == winning){
-      count = 1;
+    switch(type){
+      case 0:
+        int winning = int.tryParse(winningNumber[index]['main$forIndex'].toString()) ?? 0;
+        if(selected == winning){
+          count = 1;
+        }
+        break;
+      case 1:
+        for(int i = 1; i <= 4; i++){
+          int winning = int.tryParse(winningNumber[index]['main$i'].toString()) ?? 0;
+          if(selected == winning){
+          count = 1;
+          }
+        }
+      break;
+      case 2:
+        
+      break;
+      case 3:
+        
+      break;
+      default:
+        count = 0;
+        break;
     }
+    
+    
     
     return count;
   }

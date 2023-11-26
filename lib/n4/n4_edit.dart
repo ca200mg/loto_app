@@ -30,6 +30,7 @@ class _N4EditState extends State<N4Edit> {
       print('n4Nums:$n4Nums');
       numberList.clear();
       numberList.addAll(nums.sublist(2, 6).map((num) => int.parse(num)));
+      _selectedIndex = int.parse(nums[6]);
 
     });
   }

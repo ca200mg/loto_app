@@ -30,6 +30,7 @@ class _N3EditState extends State<N3Edit> {
       print('n3Nums:$n3Nums');
       numberList.clear();
       numberList.addAll(nums.sublist(2, 5).map((num) => int.parse(num)));
+      _selectedIndex = int.parse(nums[5]);
 
     });
   }
