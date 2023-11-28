@@ -232,7 +232,7 @@ class _N4Check extends State<N4Check> {
   // 数字の種類を確認する関数
   int _checkIfNumberMatches(int forIndex, int index, int selectedNumber, int type, List<Map<String, dynamic>> winningNumber) {
     int count = 0;
-    int selected = (selectedNumber) ?? 0;
+    int selected = selectedNumber;
     switch(type){
       case 0:
         int winning = int.tryParse(winningNumber[index]['main$forIndex'].toString()) ?? 0;
@@ -249,10 +249,14 @@ class _N4Check extends State<N4Check> {
         }
       break;
       case 2:
-        
-      break;
+        for(int i = 1; i <= 4; i++){
+          int winning = int.tryParse(winningNumber[index]['main$i'].toString()) ?? 0;
+          if(selected == winning){
+          count = 1;
+          }
+        }
+        break;
       case 3:
-        
       break;
       default:
         count = 0;
@@ -310,11 +314,8 @@ class _N4Check extends State<N4Check> {
   int selectedNumber4,
   int type,
   List<Map<String, dynamic>> winningNumbers, ) {
-    int count = 0;
     Set selectedNumbersSet = {};
     String allcount = '';
-    int selected = 0;
-    int winning = 0;
     Set winningSet = {};
     
     List<int>selectedNumbers = [selectedNumber1,selectedNumber2,selectedNumber3,selectedNumber4,];

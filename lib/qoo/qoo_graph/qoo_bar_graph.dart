@@ -88,6 +88,21 @@ Widget getLeftTitles(double value, TitleMeta meta) {
     case 400:
       text = const Text('400', style: style);
       break;
+    case 600:
+      text = const Text('600', style: style);
+      break;
+    case 650:
+      text = const Text('650', style: style);
+      break;
+    case 700:
+      text = const Text('700', style: style);
+      break;
+    case 750:
+      text = const Text('750', style: style);
+      break;
+    case 800:
+      text = const Text('800', style: style);
+      break;
     default:
       text = const Text('', style: style);
       break;

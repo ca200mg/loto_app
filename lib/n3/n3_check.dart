@@ -316,7 +316,7 @@ class _N3Check extends State<N3Check> {
         if(selectedNumbersSet.containsAll(winningSet) && winningSet.containsAll(selectedNumbersSet)){
           allcount = 'ボックスあたり';
         }else{
-          allcount = 'bはずれ';
+          allcount = 'はずれ';
         }
         break;
       case 2:
@@ -331,14 +331,14 @@ class _N3Check extends State<N3Check> {
         }else if(selectedNumbersSet.containsAll(winningSet) && winningSet.containsAll(selectedNumbersSet)){
               allcount = 'セット:ボックスあたり';
         }else{
-              allcount = 'セット:はずれ';
+              allcount = 'はずれ';
         }
       case 3:
         if(selectedNumber2==winningNumbers[index]['main2'] && 
             selectedNumber3==winningNumbers[index]['main3']){
               allcount = 'ミニあたり';
         }else{
-              allcount = 'ミニ:はずれ';
+              allcount = 'はずれ';
         }
       default:
         allcount = '';

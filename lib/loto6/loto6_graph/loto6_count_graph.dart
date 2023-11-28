@@ -13,6 +13,7 @@ class _Loto6CountGraphState extends State<Loto6CountGraph> {
   List<double> countValue = []; // 初期化
   List<String> countKey = []; // 初期化
   bool sortOrNot = false;
+  double maxValue = 0;
 
   @override
   void initState() {
@@ -25,11 +26,12 @@ class _Loto6CountGraphState extends State<Loto6CountGraph> {
     setState(() {
       countKey = data['keys'];
       countValue = data['values'];
+      maxValue = countValue.reduce((value, element) => value > element ? value : element);
     });
   }
   @override
   Widget build(BuildContext context) {
-    if (countKey.isEmpty && countValue.isEmpty) {
+    if (countKey == null || countValue == null || countKey.isEmpty || countValue.isEmpty) {
       // データがまだ取得されていない場合はローディング表示などを行う
       return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
@@ -46,7 +48,7 @@ class _Loto6CountGraphState extends State<Loto6CountGraph> {
         title: const Text('データ'),
       ),
       body: 
-        Column(
+          Column(
           children: [
             const SizedBox(
               height: 30,
@@ -63,7 +65,39 @@ class _Loto6CountGraphState extends State<Loto6CountGraph> {
                 });
                 await fetchData();
               },
-            )
+            ),
+            Expanded(
+  child: ListView.builder(
+    scrollDirection: Axis.vertical, // 垂直方向にスクロールするように設定
+    itemCount: countKey.length,
+    itemBuilder: (BuildContext context, int index) {
+      double barWidth = 0;
+      if (maxValue != 0) {
+        barWidth = (countValue[index] / maxValue) * 200;
+      }
+      return Column(
+        children: [
+          Row(
+            children: [
+              SizedBox(
+                width: 80,
+                child: Text('${countKey[index]}: ${countValue[index].toInt()}回')),
+              SizedBox(
+                height: 10,
+                width: barWidth,
+                child: Container(
+                  color: Colors.blue,
+                ),
+              ),
+            ],
+          ),
+        ],
+      );
+    },
+  ),
+)
+
+
           ],
         ),
     );
@@ -103,7 +137,7 @@ Future<Map> getKeyAndValueLists(bool sortedOrNot) async {
   // main数字ごとの出現回数を取得
   Map<String, int> counts = await countMainNumbers();
   if (sortedOrNot == true) {
-    // Mapのエントリをリストに変換し、valueの照準でソートする
+    // Mapのエントリをリストに変換し、valueの昇順でソートする
     var sortedEntries = (counts.entries.toList()
     ..sort((a, b) => a.value.compareTo(b.value)));
     // ソートされたエントリを元のMapに戻す

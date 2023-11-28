@@ -15,12 +15,12 @@ class N3BarGraph extends StatelessWidget {
       key_02:countKey[1],  value_02: countValue[1], 
       key_03:countKey[2],  value_03: countValue[2], 
       key_04:countKey[3],  value_04: countValue[3], 
-      key_05:countKey[3],  value_05: countValue[3], 
-      key_06:countKey[3],  value_06: countValue[3], 
-      key_07:countKey[3],  value_07: countValue[3], 
-      key_08:countKey[3],  value_08: countValue[3], 
-      key_09:countKey[3],  value_09: countValue[3], 
-      key_10:countKey[3],  value_10: countValue[3], 
+      key_05:countKey[4],  value_05: countValue[4], 
+      key_06:countKey[5],  value_06: countValue[5], 
+      key_07:countKey[6],  value_07: countValue[6], 
+      key_08:countKey[7],  value_08: countValue[7], 
+      key_09:countKey[8],  value_09: countValue[8], 
+      key_10:countKey[9],  value_10: countValue[9], 
       );
       myN3barData.initializeN3BarData();
       return
