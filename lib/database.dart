@@ -17,14 +17,15 @@ Future<void> fetchDataAndInsertToDatabase(date) async {
     var qooData = [];
     //1.http通信に必要なデータ
     //2.リクエストを送る
-    final uri = Uri.https('appsicoded.com', 'get_loto_results', {
+    //本番ではhttps
+    final uri = Uri.http('127.0.0.1:5000', 'get_loto_results', {
       'pw': 'doraemon810',
       'date': '$date',
     });
+    print(uri.toString());
     final http.Response res = await http.get(uri, headers: {
       
     });
-    
     if (res.statusCode == 200) {
       //3.戻り値をParseDataクラスの配列に変換
       //モデルクラスへの変換
@@ -50,6 +51,7 @@ Future<void> fetchDataAndInsertToDatabase(date) async {
     final database = await openDatabase('lotodata.db', version: 1,
         onCreate: (Database db, int version) async {
       // テーブルの作成
+      try{
       await db.execute(
         'CREATE TABLE IF NOT EXISTS loto6(no INTEGER PRIMARY KEY, bonus TEXT, date TEXT, main1 TEXT, main2 TEXT, main3 TEXT, main4 TEXT, main5 TEXT, main6 TEXT)');
       await db.execute(
@@ -64,7 +66,16 @@ Future<void> fetchDataAndInsertToDatabase(date) async {
         'CREATE TABLE IF NOT EXISTS n4(no INTEGER PRIMARY KEY, date TEXT, main1 INTEGER, main2 INTEGER, main3 INTEGER, main4 INTEGER)');
       await db.execute(
         'CREATE TABLE IF NOT EXISTS qoo(no INTEGER PRIMARY KEY, date TEXT, main1 TEXT, main2 TEXT, main3 TEXT, main4 TEXT)');
+      } catch (e) {
+  print('エラーが発生しました: $e');
+}
     });
+    if (database != null) {
+    print('データベースがオープンされました');
+    // ここでテーブル作成やデータの挿入などを行います
+  } else {
+    print('データベースのオープンに失敗しました');
+  }
     // 3. データの挿入
     for (final data in loto6Data) {
       await database.insert('loto6', data.toMap());
