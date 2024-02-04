@@ -6,6 +6,8 @@ import 'package:sqflite/sqflite.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+var url = '127.0.0.1:5000';
+
 Future<void> fetchDataAndInsertToDatabase(date) async {
     
     var loto6Data = [];
@@ -18,7 +20,8 @@ Future<void> fetchDataAndInsertToDatabase(date) async {
     //1.http通信に必要なデータ
     //2.リクエストを送る
     //本番ではhttps
-    final uri = Uri.http('127.0.0.1:5000', 'get_loto_results', {
+    try {
+    final uri = Uri.http(url, 'get_loto_results', {
       'pw': 'doraemon810',
       'date': '$date',
     });
@@ -43,10 +46,17 @@ Future<void> fetchDataAndInsertToDatabase(date) async {
       // for (var bingo in parsedData.bingo5) {
       //  print("Bingo5 - Date: ${bingo.date}, Main Numbers: ${bingo.main1}, ${bingo.main2}, ${bingo.main3}, ${bingo.main4}, ${bingo.main5}, ${bingo.main6}, ${bingo.main7}, ${bingo.main8}");
       // }
-    } else {
-      print('APIエラー');
-      return ;
-    }
+    }else{
+      throw Exception('HTTP Status Code: ${res.statusCode}');
+      }
+    } catch (error) {
+    print('通信エラー: $error');
+    throw error; // エラーを再スローしてキャッチされるようにする;
+  }
+    // else {
+    //   print('APIエラー');
+    //   return ;
+    // }
     // 2. SQLiteデータベースへの接続
     final database = await openDatabase('lotodata.db', version: 1,
         onCreate: (Database db, int version) async {
@@ -685,7 +695,8 @@ Future<void> fetchDataAndInsertToDatabaseC(date) async {
     var qooData = [];
     //1.http通信に必要なデータ
     //2.リクエストを送る
-    final uri = Uri.https('appsicoded.com', 'get_loto_results', {
+    try{
+    final uri = Uri.http(url, 'get_loto_results', {
       'pw': 'doraemon810',
       'date': '$date',
     });
@@ -710,10 +721,15 @@ Future<void> fetchDataAndInsertToDatabaseC(date) async {
       // for (var bingo in parsedData.bingo5) {
       //  print("Bingo5 - Date: ${bingo.date}, Main Numbers: ${bingo.main1}, ${bingo.main2}, ${bingo.main3}, ${bingo.main4}, ${bingo.main5}, ${bingo.main6}, ${bingo.main7}, ${bingo.main8}");
       // }
-    } else {
-      print('APIエラー');
-      return ;
-    }
+    } 
+    } catch (error) {
+    print('通信エラー: $error');
+    throw error; // エラーを再スローしてキャッチされるようにする;
+  }
+    // else {
+    //   print('APIエラー');
+    //   return ;
+    // }
     // 2. SQLiteデータベースへの接続
     final database = await openDatabase('lotodata_c.db', version: 1,
         onCreate: (Database db, int version) async {
