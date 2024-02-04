@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:loto_app/bingo/bingo_edit.dart';
 import 'package:loto_app/bingo/bingo_enter.dart';
-import 'package:loto_app/loto6/loto6_edit.dart';
 import 'package:sqflite/sqflite.dart';
 
 // Loto6CheckウィジェットのStatefulWidgetクラス
@@ -270,7 +269,7 @@ class _BingoCheck extends State<BingoCheck> {
     int count = 0;
     String allcount = '';
     
-    List<String>selectedNumbers = [selectedNumber1,selectedNumber2,selectedNumber3,selectedNumber4,selectedNumber5,selectedNumber6,selectedNumber7,selectedNumber8];
+    // List<String>selectedNumbers = [selectedNumber1,selectedNumber2,selectedNumber3,selectedNumber4,selectedNumber5,selectedNumber6,selectedNumber7,selectedNumber8];
 
     bool cell_1 = int.tryParse(selectedNumber1) == int.tryParse(winningNumbers[index]['main1']);
     bool cell_2 = int.tryParse(selectedNumber2) == int.tryParse(winningNumbers[index]['main2']);

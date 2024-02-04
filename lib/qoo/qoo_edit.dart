@@ -382,7 +382,7 @@ Widget build(BuildContext context) {
                   ElevatedButton(
                     onPressed: (numberList.length == 4) ? () async {
                       // 選択した数字をMinilotoCheckに渡すなどの処理を行う
-                      List<int> preNumSetList1 = numberList;
+                      // List<int> preNumSetList1 = numberList;
                       List<String> preNumSetList2 = convertIntegersToFruits(numberList);
                       await updateQooData(widget.id, int.parse(qooNums[0]), qooNums[1], preNumSetList2);
                       Navigator.pop(context, true);

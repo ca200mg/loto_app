@@ -232,7 +232,7 @@ class _N3Check extends State<N3Check> {
   // 数字の種類を確認する関数
   int _checkIfNumberMatches(int forIndex, int index, int selectedNumber, List<Map<String, dynamic>> winningNumber) {
     int count = 0;
-    int selected = (selectedNumber) ?? 0;
+    int selected = selectedNumber;
     int winning = int.tryParse(winningNumber[index]['main$forIndex'].toString()) ?? 0;
     if(selected == winning){
       count = 1;
@@ -287,11 +287,11 @@ class _N3Check extends State<N3Check> {
   int selectedNumber3,
   int type,
   List<Map<String, dynamic>> winningNumbers, ) {
-    int count = 0;
+    // int count = 0;
     Set selectedNumbersSet = {};
     String allcount = '';
-    int selected = 0;
-    int winning = 0;
+    // int selected = 0;
+    // int winning = 0;
     Set winningSet = {};
     
     List<int>selectedNumbers = [selectedNumber1,selectedNumber2,selectedNumber3,];

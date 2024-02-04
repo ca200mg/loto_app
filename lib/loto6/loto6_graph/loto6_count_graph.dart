@@ -31,7 +31,7 @@ class _Loto6CountGraphState extends State<Loto6CountGraph> {
   }
   @override
   Widget build(BuildContext context) {
-    if (countKey == null || countValue == null || countKey.isEmpty || countValue.isEmpty) {
+    if (countKey.isEmpty || countValue.isEmpty) {
       // データがまだ取得されていない場合はローディング表示などを行う
       return const Scaffold(
         body: Center(child: CircularProgressIndicator()),

@@ -12,7 +12,7 @@ class ResetC extends StatefulWidget {
 }
 
 class _ResetCState extends State<ResetC> {
-  bool _isLoading = false;
+  // bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +75,9 @@ class _ResetCState extends State<ResetC> {
   }
 
   Future<void> _deleteAndInsertDataC(String date) async {
-    setState(() {
-      _isLoading = true;
-    });
+    // setState(() {
+    //   _isLoading = true;
+    // });
 
     // データの削除
     await deleteAllDataFromAllTableC();
@@ -85,8 +85,8 @@ class _ResetCState extends State<ResetC> {
     // データの挿入
     await fetchDataAndInsertToDatabaseC(date);
 
-    setState(() {
-      _isLoading = false;
-    });
+    // setState(() {
+    //   _isLoading = false;
+    // });
   }
 }

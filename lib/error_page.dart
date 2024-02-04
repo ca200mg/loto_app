@@ -8,7 +8,7 @@ class ErrorPage extends StatefulWidget {
 }
 
 class _ErrorPageState extends State<ErrorPage> {
-  bool _isLoading = false;
+  // bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {

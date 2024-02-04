@@ -12,7 +12,7 @@ class ResetUsesr extends StatefulWidget {
 }
 
 class _ResetUsesrState extends State<ResetUsesr> {
-  bool _isLoading = false;
+  // bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +75,9 @@ class _ResetUsesrState extends State<ResetUsesr> {
   }
 
   Future<void> _deleteAndInsertData() async {
-    setState(() {
-      _isLoading = true;
-    });
+    // setState(() {
+    //   _isLoading = true;
+    // });
 
     // データの削除
     await deleteAllDataFromAllTableUser();
@@ -85,8 +85,8 @@ class _ResetUsesrState extends State<ResetUsesr> {
     // データの挿入
     await setUserDatabase();
 
-    setState(() {
-      _isLoading = false;
-    });
+    // setState(() {
+    //   _isLoading = false;
+    // });
   }
 }

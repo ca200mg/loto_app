@@ -80,12 +80,12 @@ Future<void> fetchDataAndInsertToDatabase(date) async {
   print('エラーが発生しました: $e');
 }
     });
-    if (database != null) {
-    print('データベースがオープンされました');
-    // ここでテーブル作成やデータの挿入などを行います
-  } else {
-    print('データベースのオープンに失敗しました');
-  }
+  //   if (database != null) {
+  //   print('データベースがオープンされました');
+  //   // ここでテーブル作成やデータの挿入などを行います
+  // } else {
+  //   print('データベースのオープンに失敗しました');
+  // }
     // 3. データの挿入
     for (final data in loto6Data) {
       await database.insert('loto6', data.toMap());
@@ -914,7 +914,7 @@ Future<void> fetchDataAndInsertToDatabaseC(date) async {
 
 Future<void> setUserDatabase() async{
   print('setUserDatabase!');
-  final database = await openDatabase('user_database.db', version: 1,
+      await openDatabase('user_database.db', version: 1,
         onCreate: (Database db, int version) async {
       // テーブルの作成
       await db.execute(
