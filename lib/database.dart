@@ -51,7 +51,7 @@ Future<void> fetchDataAndInsertToDatabase(date) async {
       }
     } catch (error) {
     print('通信エラー: $error');
-    throw error; // エラーを再スローしてキャッチされるようにする;
+    rethrow; // エラーを再スローしてキャッチされるようにする;
   }
     // else {
     //   print('APIエラー');
@@ -724,7 +724,7 @@ Future<void> fetchDataAndInsertToDatabaseC(date) async {
     } 
     } catch (error) {
     print('通信エラー: $error');
-    throw error; // エラーを再スローしてキャッチされるようにする;
+    rethrow; // エラーを再スローしてキャッチされるようにする;
   }
     // else {
     //   print('APIエラー');

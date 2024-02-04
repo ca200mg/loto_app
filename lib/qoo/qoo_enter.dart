@@ -14,7 +14,7 @@ class QooEnter extends StatefulWidget {
 class _QooEnterState extends State<QooEnter> {
   List<int> numberList = [0,0,0,0];
   final List<String> _text = ['apple', 'orange', 'melon', 'grape', 'peach'];
-  int _selectedIndex = 0;
+  final int _selectedIndex = 0;
   
   void toggleNumber(int number) {
     setState(() {
@@ -382,7 +382,7 @@ Widget build(BuildContext context) {
 //numberList
 }
 
-Future setNewQooNums(int no, String date, List<int> numSetList, int selectedIndex, List<String> _text)async{
+Future setNewQooNums(int no, String date, List<int> numSetList, int selectedIndex, List<String> text)async{
   
   String path = join(await getDatabasesPath(), 'user_database.db');
   Database database = await openDatabase(path);
@@ -391,10 +391,10 @@ Future setNewQooNums(int no, String date, List<int> numSetList, int selectedInde
     {
       'no': no,
         'date': date,
-        'main1': _text[numSetList[0]],
-        'main2': _text[numSetList[1]],
-        'main3': _text[numSetList[2]],
-        'main4': _text[numSetList[3]],
+        'main1': text[numSetList[0]],
+        'main2': text[numSetList[1]],
+        'main3': text[numSetList[2]],
+        'main4': text[numSetList[3]],
     }, conflictAlgorithm: ConflictAlgorithm.ignore,);
 
     await database.close();

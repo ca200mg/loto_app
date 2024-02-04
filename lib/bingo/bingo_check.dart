@@ -179,7 +179,7 @@ class _BingoCheck extends State<BingoCheck> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                               height: 10,
                             ),
                       Row(
