@@ -3,8 +3,8 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class QooEdit extends StatefulWidget {
-  int id;
-  QooEdit({required this.id, Key? key}) : super(key: key);
+  final int id;
+  const QooEdit({required this.id, Key? key}) : super(key: key);
 
   @override
   State<QooEdit> createState() => _QooEditState();

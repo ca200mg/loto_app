@@ -3,8 +3,8 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class N3Edit extends StatefulWidget {
-  int id;
-  N3Edit({required this.id, Key? key}) : super(key: key);
+  final int id;
+  const N3Edit({required this.id, Key? key}) : super(key: key);
 
   @override
   State<N3Edit> createState() => _N3EditState();

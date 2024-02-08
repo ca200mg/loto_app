@@ -3,8 +3,8 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MinilotoEdit extends StatefulWidget {
-  int id;
-  MinilotoEdit({required this.id, Key? key}) : super(key: key);
+  final int id;
+  const MinilotoEdit({required this.id, Key? key}) : super(key: key);
 
   @override
   State<MinilotoEdit> createState() => _MinilotoEditState();

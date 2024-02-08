@@ -3,8 +3,8 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Loto6Edit extends StatefulWidget {
-  int id;
-  Loto6Edit({required this.id, Key? key}) : super(key: key);
+  final int id;
+  const Loto6Edit({required this.id, Key? key}) : super(key: key);
 
   @override
   State<Loto6Edit> createState() => _Loto6EditState();
