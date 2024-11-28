@@ -26,30 +26,30 @@ class Bingo {
   Map<String, dynamic> toMap() {
     return {
       'date': date,
-      'main1': main1,
-      'main2': main2,
-      'main3': main3,
-      'main4': main4,
-      'main5': main5,
-      'main6': main6,
-      'main7': main7,
-      'main8': main8,
+      'main1': main1.toString(),
+      'main2': main2.toString(),
+      'main3': main3.toString(),
+      'main4': main4.toString(),
+      'main5': main5.toString(),
+      'main6': main6.toString(),
+      'main7': main7.toString(),
+      'main8': main8.toString(),
       'no': no,
     };
   }
 
   factory Bingo.fromJson(Map<String, dynamic> json) {
     return Bingo(
-      date: json['date'],
-      main1: json['main1'],
-      main2: json['main2'],
-      main3: json['main3'],
-      main4: json['main4'],
-      main5: json['main5'],
-      main6: json['main6'],
-      main7: json['main7'],
-      main8: json['main8'],
-      no: json['no'],
+      date: json['date'] as String,
+      main1: json['main1'].toString(),
+      main2: json['main2'].toString(),
+      main3: json['main3'].toString(),
+      main4: json['main4'].toString(),
+      main5: json['main5'].toString(),
+      main6: json['main6'].toString(),
+      main7: json['main7'].toString(),
+      main8: json['main8'].toString(),
+      no: json['no'] as int,
     );
   }
 }
@@ -81,27 +81,27 @@ class Loto6 {
     return {
       'bonus': bonus,
       'date': date,
-      'main1': main1,
-      'main2': main2,
-      'main3': main3,
-      'main4': main4,
-      'main5': main5,
-      'main6': main6,
+      'main1': main1.toString(),
+      'main2': main2.toString(),
+      'main3': main3.toString(),
+      'main4': main4.toString(),
+      'main5': main5.toString(),
+      'main6': main6.toString(),
       'no': no,
     };
   }
 
   factory Loto6.fromJson(Map<String, dynamic> json) {
     return Loto6(
-      bonus: json['bonus'],
-      date: json['date'],
-      main1: json['main1'],
-      main2: json['main2'],
-      main3: json['main3'],
-      main4: json['main4'],
-      main5: json['main5'],
-      main6: json['main6'],
-      no: json['no'],
+      bonus: json['bonus'].toString(),
+      date: json['date'] as String,
+      main1: json['main1'].toString(),
+      main2: json['main2'].toString(),
+      main3: json['main3'].toString(),
+      main4: json['main4'].toString(),
+      main5: json['main5'].toString(),
+      main6: json['main6'].toString(),
+      no: json['no'] as int,
     );
   }
 }
@@ -135,33 +135,33 @@ class Loto7 {
 
   Map<String, dynamic> toMap() {
     return {
-      'bonus1': bonus1,
-      'bonus2': bonus2,
+      'bonus1': bonus1.toString(),
+      'bonus2': bonus2.toString(),
       'date': date,
-      'main1': main1,
-      'main2': main2,
-      'main3': main3,
-      'main4': main4,
-      'main5': main5,
-      'main6': main6,
-      'main7': main7,
+      'main1': main1.toString(),
+      'main2': main2.toString(),
+      'main3': main3.toString(),
+      'main4': main4.toString(),
+      'main5': main5.toString(),
+      'main6': main6.toString(),
+      'main7': main7.toString(),
       'no': no,
     };
   }
 
   factory Loto7.fromJson(Map<String, dynamic> json) {
     return Loto7(
-      bonus1: json['bonus1'],
-      bonus2: json['bonus2'],
-      date: json['date'],
-      main1: json['main1'],
-      main2: json['main2'],
-      main3: json['main3'],
-      main4: json['main4'],
-      main5: json['main5'],
-      main6: json['main6'],
-      main7: json['main7'],
-      no: json['no'],
+      bonus1: json['bonus1'].toString(),
+      bonus2: json['bonus2'].toString(),
+      date: json['date'] as String,
+      main1: json['main1'].toString(),
+      main2: json['main2'].toString(),
+      main3: json['main3'].toString(),
+      main4: json['main4'].toString(),
+      main5: json['main5'].toString(),
+      main6: json['main6'].toString(),
+      main7: json['main7'].toString(),
+      no: json['no'] as int,
     );
   }
 }
@@ -189,27 +189,27 @@ class Miniloto {
 
   Map<String, dynamic> toMap() {
     return {
-      'bonus': bonus,
+      'bonus': bonus.toString(),
       'date': date,
-      'main1': main1,
-      'main2': main2,
-      'main3': main3,
-      'main4': main4,
-      'main5': main5,
+      'main1': main1.toString(),
+      'main2': main2.toString(),
+      'main3': main3.toString(),
+      'main4': main4.toString(),
+      'main5': main5.toString(),
       'no': no,
     };
   }
 
   factory Miniloto.fromJson(Map<String, dynamic> json) {
     return Miniloto(
-      bonus: json['bonus'],
-      date: json['date'],
-      main1: json['main1'],
-      main2: json['main2'],
-      main3: json['main3'],
-      main4: json['main4'],
-      main5: json['main5'],
-      no: json['no'],
+      bonus: json['bonus'].toString(),
+      date: json['date'] as String,
+      main1: json['main1'].toString(),
+      main2: json['main2'].toString(),
+      main3: json['main3'].toString(),
+      main4: json['main4'].toString(),
+      main5: json['main5'].toString(),
+      no: json['no'] as int,
     );
   }
 }
@@ -241,11 +241,11 @@ class N3 {
 
   factory N3.fromJson(Map<String, dynamic> json) {
     return N3(
-      date: json['date'],
-      main1: json['main1'],
-      main2: json['main2'],
-      main3: json['main3'],
-      no: json['no'],
+      date: json['date'] as String,
+      main1: json['main1'] as int,
+      main2: json['main2'] as int,
+      main3: json['main3'] as int,
+      no: json['no'] as int,
     );
   }
 }
@@ -280,12 +280,12 @@ class N4 {
 
   factory N4.fromJson(Map<String, dynamic> json) {
     return N4(
-      date: json['date'],
-      main1: json['main1'],
-      main2: json['main2'],
-      main3: json['main3'],
-      main4: json['main4'],
-      no: json['no'],
+      date: json['date'] as String,
+      main1: json['main1'] as int,
+      main2: json['main2'] as int,
+      main3: json['main3'] as int,
+      main4: json['main4'] as int,
+      no: json['no'] as int,
     );
   }
 }
@@ -310,22 +310,22 @@ class Qoo {
   Map<String, dynamic> toMap() {
     return {
       'date': date,
-      'main1': main1,
-      'main2': main2,
-      'main3': main3,
-      'main4': main4,
+      'main1': main1.toString(),
+      'main2': main2.toString(),
+      'main3': main3.toString(),
+      'main4': main4.toString(),
       'no': no,
     };
   }
 
   factory Qoo.fromJson(Map<String, dynamic> json) {
     return Qoo(
-      date: json['date'],
-      main1: json['main1'],
-      main2: json['main2'],
-      main3: json['main3'],
-      main4: json['main4'],
-      no: json['no'],
+      date: json['date'] as String,
+      main1: json['main1'].toString(),
+      main2: json['main2'].toString(),
+      main3: json['main3'].toString(),
+      main4: json['main4'].toString(),
+      no: json['no'] as int,
     );
   }
 }

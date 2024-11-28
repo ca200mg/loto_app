@@ -21,7 +21,7 @@ class ParsedData {
 
   factory ParsedData.fromJson(Map<String, dynamic> json) {
     return ParsedData(
-      bingo5: List<Bingo>.from(json['bingo5'].map((x) => Bingo.fromJson(x))),
+      bingo5: List<Bingo>.from(json['bingo'].map((x) => Bingo.fromJson(x))),
       loto6: List<Loto6>.from(json['loto6'].map((x) => Loto6.fromJson(x))),
       loto7: List<Loto7>.from(json['loto7'].map((x) => Loto7.fromJson(x))),
       miniloto: List<Miniloto>.from(json['miniloto'].map((x) => Miniloto.fromJson(x))),
