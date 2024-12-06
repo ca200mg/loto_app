@@ -71,15 +71,15 @@ class _BingoCountGraphState extends State<BingoCountGraph> {
   }
 }
 
-// bingoテーブル内のmain1からmain6の各数字の出現回数をカウントする関数
+// bingoテーブル内のmain1からmain8の各数字の出現回数をカウントする関数
 Future<Map<String, int>> countMainNumbers() async {
   // データベースを開く
   final Database database = await openDatabase('lotodata.db');
   // 数字ごとのカウントを格納するマップ
   Map<String, int> countMap = {};
 
-  // main1からmain6までそれぞれの数字の出現回数をカウントする
-  for (int i = 1; i <= 6; i++) {
+  // main1からmain8までそれぞれの数字の出現回数をカウントする
+  for (int i = 1; i <= 8; i++) {
     // SQLクエリを実行して、各数字ごとのカウントを取得
     List<Map<String, dynamic>> result = await database.rawQuery(
       'SELECT main$i, COUNT(*) as count FROM bingo GROUP BY main$i',
