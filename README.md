@@ -1,16 +1,23 @@
 # loto_app
 
-A new Flutter project.
+みずほ銀行の数字選択式宝くじの管理のためのアプリのローカルテストバージョン
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+VScodeでFlutterの開発環境を整えてから実行してください。
 
-A few resources to get you started if this is your first Flutter project:
+#### 仮想環境を準備して、flaskをインストールする
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+`$ pip install flask`
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### for_test.ipynbの中の「くじアプリローカルテスト用スクリプト」を動かす
+
+ブラウザで下記のURLを指定する
+
+`http://127.0.0.1:5000/get_loto_results?pw=doraemon810&date=2024-12-01`
+
+jsonが表示されたら成功
+
+#### アプリを動かす
+
+エミュレータでアプリを動かす
