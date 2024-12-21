@@ -54,9 +54,9 @@ class _BingoCheck extends State<BingoCheck> {
     setState(() {
       _dataListA = List.from(data);
       // データリストAにデフォルトの値を追加
-      _dataListA.insert(0, {'no': 99, 'bonus': '99', 'date': '9999-99-99', 'main1': '99', 'main2': '99', 'main3': '99', 'main4': '99', 'main5': '99', 'main6': '99'});
-      _dataListA.insert(0, {'no': 99, 'bonus': '99', 'date': '9999-99-99', 'main1': '99', 'main2': '99', 'main3': '99', 'main4': '99', 'main5': '99', 'main6': '99'});
-      _dataListA.insert(0, {'no': 99, 'bonus': '99', 'date': '9999-99-99', 'main1': '99', 'main2': '99', 'main3': '99', 'main4': '99', 'main5': '99', 'main6': '99'});
+      _dataListA.insert(0, {'no': 99, 'bonus': '99', 'date': '9999-99-99', 'main1': '99', 'main2': '99', 'main3': '99', 'main4': '99', 'main5': '99', 'main6': '99', 'main7': '99', 'main8': '99'});
+      _dataListA.insert(0, {'no': 99, 'bonus': '99', 'date': '9999-99-99', 'main1': '99', 'main2': '99', 'main3': '99', 'main4': '99', 'main5': '99', 'main6': '99', 'main7': '99', 'main8': '99'});
+      _dataListA.insert(0, {'no': 99, 'bonus': '99', 'date': '9999-99-99', 'main1': '99', 'main2': '99', 'main3': '99', 'main4': '99', 'main5': '99', 'main6': '99', 'main7': '99', 'main8': '99'});
     });
   }
 

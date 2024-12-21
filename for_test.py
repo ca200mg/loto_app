@@ -83,4 +83,5 @@ def is_valid_date(date):
         return False
 
 if __name__ == '__main__':
+    print("http://127.0.0.1:5000/get_loto_results?pw=doraemon810&date=2024-02-02")
     app.run()
