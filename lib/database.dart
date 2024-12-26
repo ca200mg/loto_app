@@ -57,6 +57,7 @@ Future<void> fetchDataAndInsertToDatabase(date) async {
     //   print('APIエラー');
     //   return ;
     // }
+
     // 2. SQLiteデータベースへの接続
     final database = await openDatabase('lotodata.db', version: 1,
         onCreate: (Database db, int version) async {
@@ -86,6 +87,7 @@ Future<void> fetchDataAndInsertToDatabase(date) async {
   // } else {
   //   print('データベースのオープンに失敗しました');
   // }
+  
     // 3. データの挿入
     for (final data in loto6Data) {
       await database.insert('loto6', data.toMap());
@@ -665,24 +667,14 @@ Future<int> checkNo(String tableName, Database databaseA, Database database) asy
     if (cNo != null && lNo != null) {
     
       int value = lNo-cNo;
-      switch(value){
-        case 0:
-          return 3;
-        case 1:
-          return 2;
-        case 2:
-          return 1;
-        case 3:
-          return 0;
-        default:
-          return 0;
-      }
+      return 3 - value;
     }
   }
 
   // どちらかが整数に変換できなかった場合は false を返す
   return 0;
 }
+
 
 Future<void> fetchDataAndInsertToDatabaseC(date) async {
     
@@ -731,7 +723,7 @@ Future<void> fetchDataAndInsertToDatabaseC(date) async {
     //   return ;
     // }
     // 2. SQLiteデータベースへの接続
-    final database = await openDatabase('lotodata_c.db', version: 1,
+    final databaseC = await openDatabase('lotodata_c.db', version: 1,
         onCreate: (Database db, int version) async {
       // テーブルの作成
       await db.execute(
@@ -750,165 +742,82 @@ Future<void> fetchDataAndInsertToDatabaseC(date) async {
         'CREATE TABLE IF NOT EXISTS qoo(no INTEGER PRIMARY KEY, date TEXT, main1 TEXT, main2 TEXT, main3 TEXT, main4 TEXT)');
     });
     final databaseA = await openDatabase('lotodata.db');
-    // 3. データの挿入
-    for (final data in loto6Data) {
-      var adjustedData = adjustData(data.toMap());
-      await database.insert('loto6', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
-    }
-    switch (await checkNo('loto6', databaseA, database)){
-      case 0:
-        
-        break;
-      case 1:
-        for(int i=0; i<1; i++){await loto6calculateAfterDatesAndInsertData('loto6', database);}
-        break;
-      case 2:
-        for(int i=0; i<2; i++){await loto6calculateAfterDatesAndInsertData('loto6', database);}
-        break;
-      case 3:
-        for(int i=0; i<3; i++){await loto6calculateAfterDatesAndInsertData('loto6', database);}
-        break;
-      default:
-        
-        break;
 
-    }
     
-    for (final data in bingoData) {
-      var adjustedData = adjustData(data.toMap());
-      await database.insert('bingo', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
-    }
-    switch (await checkNo('bingo', databaseA, database)){
-      case 0:
-        
-        break;
-      case 1:
-        for(int i=0; i<1; i++){await bingoCalculateAfterDatesAndInsertData('bingo', database);}
-        break;
-      case 2:
-        for(int i=0; i<2; i++){await bingoCalculateAfterDatesAndInsertData('bingo', database);}
-        break;
-      case 3:
-        for(int i=0; i<3; i++){await bingoCalculateAfterDatesAndInsertData('bingo', database);}
-        break;
-      default:
-        
-        break;
+    // 3. データの挿入
 
+    int checkResult = 0;
+
+    for (final data in loto6Data) {
+      await databaseC.insert('loto6', adjustData(data.toMap()), conflictAlgorithm: ConflictAlgorithm.ignore);
+    }
+    checkResult = await checkNo('loto6', databaseA, databaseC);
+    if (checkResult > 0 && checkResult <= 3) {
+    for (int i = 0; i < checkResult; i++) {
+    await loto6calculateAfterDatesAndInsertData('loto6', databaseC);
+    }
+    }
+
+    for (final data in bingoData) {
+      await databaseC.insert('bingo', adjustData(data.toMap()), conflictAlgorithm: ConflictAlgorithm.ignore);
+    }
+    checkResult = await checkNo('bingo', databaseA, databaseC);
+    if (checkResult > 0 && checkResult <= 3) {
+    for (int i = 0; i < checkResult; i++) {
+    await bingoCalculateAfterDatesAndInsertData('bingo', databaseC);
+    }
     }
 
     for (final data in loto7Data) {
-      var adjustedData = adjustData(data.toMap());
-      await database.insert('loto7', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
+      await databaseC.insert('loto7', adjustData(data.toMap()), conflictAlgorithm: ConflictAlgorithm.ignore);
     }
-    switch (await checkNo('Loto7', databaseA, database)){
-      case 0:
-        
-        break;
-      case 1:
-        for(int i=0; i<1; i++){await loto7calculateAfterDatesAndInsertData('loto7', database);}
-        break;
-      case 2:
-        for(int i=0; i<2; i++){await loto7calculateAfterDatesAndInsertData('loto7', database);}
-        break;
-      case 3:
-        for(int i=0; i<3; i++){await loto7calculateAfterDatesAndInsertData('loto7', database);}
-        break;
-      default:
-        
-        break;
-
+    checkResult = await checkNo('loto7', databaseA, databaseC);
+    if (checkResult > 0 && checkResult <= 3) {
+    for (int i = 0; i < checkResult; i++) {
+    await loto7calculateAfterDatesAndInsertData('loto7', databaseC);
+    }
     }
 
     for (final data in minilotoData) {
-      var adjustedData = adjustData(data.toMap());
-      await database.insert('miniloto', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
+      await databaseC.insert('miniloto', adjustData(data.toMap()), conflictAlgorithm: ConflictAlgorithm.ignore);
     }
-    switch (await checkNo('miniloto', databaseA, database)){
-      case 0:
-        
-        break;
-      case 1:
-        for(int i=0; i<1; i++){await minilotoCalculateAfterDatesAndInsertData('miniloto', database);}
-        break;
-      case 2:
-        for(int i=0; i<2; i++){await minilotoCalculateAfterDatesAndInsertData('miniloto', database);}
-        break;
-      case 3:
-        for(int i=0; i<3; i++){await minilotoCalculateAfterDatesAndInsertData('miniloto', database);}
-        break;
-      default:
-        
-        break;
+    checkResult = await checkNo('miniloto', databaseA, databaseC);
+    if (checkResult > 0 && checkResult <= 3) {
+    for (int i = 0; i < checkResult; i++) {
+    await minilotoCalculateAfterDatesAndInsertData('miniloto', databaseC);
+    }
+    }
 
-    }
     for (final data in n3Data) {
-      var adjustedData = adjustData(data.toMap());
-      await database.insert('n3', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
+      await databaseC.insert('n3', adjustData(data.toMap()), conflictAlgorithm: ConflictAlgorithm.ignore);
     }
-    switch (await checkNo('n3', databaseA, database)){
-      case 0:
-        
-        break;
-      case 1:
-        for(int i=0; i<1; i++){await n3CalculateAfterDatesAndInsertData('n3', database);}
-        break;
-      case 2:
-        for(int i=0; i<2; i++){await n3CalculateAfterDatesAndInsertData('n3', database);}
-        break;
-      case 3:
-        for(int i=0; i<3; i++){await n3CalculateAfterDatesAndInsertData('n3', database);}
-        break;
-      default:
-        
-        break;
-
+    checkResult = await checkNo('n3', databaseA, databaseC);
+    if (checkResult > 0 && checkResult <= 3) {
+    for (int i = 0; i < checkResult; i++) {
+    await n3CalculateAfterDatesAndInsertData('n3', databaseC);
+    }
     }
 
     for (final data in n4Data) {
-      var adjustedData = adjustData(data.toMap());
-      await database.insert('n4', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
+      await databaseC.insert('n4', adjustData(data.toMap()), conflictAlgorithm: ConflictAlgorithm.ignore);
     }
-    switch (await checkNo('n4', databaseA, database)){
-      case 0:
-        
-        break;
-      case 1:
-        for(int i=0; i<1; i++){await n4CalculateAfterDatesAndInsertData('n4', database);}
-        break;
-      case 2:
-        for(int i=0; i<2; i++){await n4CalculateAfterDatesAndInsertData('n4', database);}
-        break;
-      case 3:
-        for(int i=0; i<3; i++){await n4CalculateAfterDatesAndInsertData('n4', database);}
-        break;
-      default:
-        
-        break;
+    checkResult = await checkNo('n4', databaseA, databaseC);
+    if (checkResult > 0 && checkResult <= 3) {
+    for (int i = 0; i < checkResult; i++) {
+    await n4CalculateAfterDatesAndInsertData('n4', databaseC);
+    }
+    }
 
-    }
     for (final data in qooData) {
-      var adjustedData = adjustData(data.toMap());
-      await database.insert('qoo', adjustedData, conflictAlgorithm: ConflictAlgorithm.ignore,);
+      await databaseC.insert('qoo', adjustData(data.toMap()), conflictAlgorithm: ConflictAlgorithm.ignore);
     }
-    switch (await checkNo('qoo', databaseA, database)){
-      case 0:
-        
-        break;
-      case 1:
-        for(int i=0; i<1; i++){await qooCalculateAfterDatesAndInsertData('qoo', database);}
-        break;
-      case 2:
-        for(int i=0; i<2; i++){await qooCalculateAfterDatesAndInsertData('qoo', database);}
-        break;
-      case 3:
-        for(int i=0; i<3; i++){await qooCalculateAfterDatesAndInsertData('qoo', database);}
-        break;
-      default:
-        
-        break;
-
+    checkResult = await checkNo('qoo', databaseA, databaseC);
+    if (checkResult > 0 && checkResult <= 3) {
+    for (int i = 0; i < checkResult; i++) {
+    await qooCalculateAfterDatesAndInsertData('qoo', databaseC);
     }
+    }
+    
 
 }
 

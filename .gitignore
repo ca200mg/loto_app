@@ -45,3 +45,7 @@ app.*.map.json
 
 # venv
 venv
+
+# other
+.gitignore
+.DS_Store
